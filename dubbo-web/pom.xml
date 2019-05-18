@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>dubbo-parent</artifactId>
+        <groupId>cn.tang</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../dubbo-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>dubbo-web</artifactId>
+    <name>${project.artifactId}</name>
+    <!--web模块需要制定打包成war包-->
+    <packaging>war</packaging>
+
+    <properties>
+        <profiles.dir>src/main/profiles</profiles.dir><!--profie根目录 -->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.tang</groupId>
+            <artifactId>dubbo-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.tang</groupId>
+            <artifactId>dubbo-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--虽然引入了dubbo-core模块，但是关于junit和spring-test包仍然需要在相应要进行
+        test测试的module中的pom.xml加上，否则相应模块中无法进行测试的，可能是因为scope的原因。
+        已经验证，就是scope的原因，可能在某个module中将scope设置为test之后，只能在本module中
+        的test域使用！-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profile.dir>${profiles.dir}/dev</profile.dir>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>beta</id>
+            <properties>
+                <profile.dir>${profiles.dir}/beta</profile.dir>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <profile.dir>${profiles.dir}/product</profile.dir>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>dubbo-web</finalName>
+        <!--由于上面已经指定打成war包了，所以这个地方不加这个插件也一样能打出war包，
+        猜测是当需要排除某些内容不打入war包时使用这个插件，比如下面。-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-war-plugin</artifactId>-->
+                <!--<version>2.0.2</version>-->
+                <!--<configuration>-->
+                    <!--<warSourceExcludes>**/gulp/**</warSourceExcludes>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    </build>
+
+
+</project>

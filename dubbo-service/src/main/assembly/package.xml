@@ -1,0 +1,81 @@
+<assembly>
+    <!--这个id指定的内容就是再生成目录或者zip文件时的后缀
+    比如本模块中生成的为dubbo-service-1.0-SNAPSHOT-bin 最后的bin就是这里指定的id
+    这里id是不可空的！->
+    <id>bin</id>
+    <!- 最终打包成一个文件夹 -->
+    <formats>
+        <!--下面是指定最终打成的文件形式，如果同时指定多个，那么都会生成这些文件形式，比如
+        下面tar.gz也会生成tar.gz格式的文件形式-->
+        <!--<format>tar.gz</format>-->
+        <format>dir</format>
+    </formats>
+  
+    <!-- Adds dependencies to zip package under lib directory -->  
+    <dependencySets>  
+        <dependencySet>  
+        <!--不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录 -->
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>  
+            <unpack>false</unpack>  
+        </dependencySet>  
+    </dependencySets>  
+  
+    <fileSets>  
+        <!-- 把项目相关的说明文件，打包进zip文件的根目录 -->  
+        <fileSet>  
+            <directory>${project.basedir}</directory>  
+            <outputDirectory>/</outputDirectory>  
+            <includes>  
+                <include>README*</include>  
+                <include>LICENSE*</include>  
+                <include>NOTICE*</include>  
+            </includes>  
+        </fileSet>  
+          
+        <!-- 把项目的配置文件，打包进zip文件的config目录 -->
+        <!-- 将\src\main\config目录打包进zip或文件夹的config目录
+        而jar包中的config目录是\src\main\profiles\dev\config目录打入的。
+        maven-jar-plugin插件会把classpath目录下的内容打入jar包，其中classpath的内容
+        就是java\*以及resources\*，也就是java下级以及资源目录下级！-->
+        <fileSet>  
+            <directory>${project.basedir}\src\main\config</directory>
+            <outputDirectory>config</outputDirectory>
+            <includes>  
+                <include>*.xml</include>  
+                <include>*.properties</include>  
+            </includes>  
+        </fileSet>  
+          
+        <!-- 把项目的脚本文件目录（ src/main/scripts ）中的启动脚本文件，打包进zip文件的根目录 -->
+        <fileSet>
+            <!--src\main\scripts-->
+            <directory>${project.build.scriptSourceDirectory}</directory>  
+            <outputDirectory>/</outputDirectory>
+            <includes>  
+                <include>startup.*</include>  
+            </includes>  
+        </fileSet>  
+  
+        <!-- 把项目的脚本文件（除了启动脚本文件），打包进zip文件的script目录 -->  
+        <fileSet>
+            <!--src\main\scripts-->
+            <directory>${project.build.scriptSourceDirectory}</directory>  
+            <outputDirectory>/</outputDirectory>
+            <includes>  
+                <include>startup.*</include>  
+            </includes>  
+        </fileSet>  
+          
+        <!-- 把项目自己编译出来的jar文件，打包进zip文件的根目录 -->
+        <!--因为pom文件中已经添加了maven-jar-plugin插件，并且-->
+        <fileSet>
+            <!--target\-->
+            <directory>${project.build.directory}</directory>  
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>  
+    </fileSets>  
+</assembly>  
