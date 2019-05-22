@@ -1,9 +1,9 @@
 <assembly>
     <!--这个id指定的内容就是再生成目录或者zip文件时的后缀
-    比如本模块中生成的为dubbo-service-1.0-SNAPSHOT-bin 最后的bin就是这里指定的id
-    这里id是不可空的！->
+    比如本模块中生成的为dubbo-service-1.0-SNAPSHOT-bin 最后的bin就是这里指定的id.
+    这里id是不可空的！-->
     <id>bin</id>
-    <!- 最终打包成一个文件夹 -->
+    <!-- 最终打包成一个文件夹 -->
     <formats>
         <!--下面是指定最终打成的文件形式，如果同时指定多个，那么都会生成这些文件形式，比如
         下面tar.gz也会生成tar.gz格式的文件形式-->

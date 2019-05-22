@@ -13,6 +13,49 @@
     <error-page>
         <location>/static/html/error/404.html</location>
     </error-page>
+
+    <!--
+        在web.xml中，有此加载顺序： context-param -> listener -> filter -> servlet
+    但是跟在web.xml中的位置无关，tomcat会按照上面的顺序找标签，然后加载！
+    -->
+
+    <!--
+        初始化过程
+        在启动 Web 项目时 , web 容器 ( 比如tomcat ) 会先读取 web.xml 文件中的两个节点 <listener> 和 <context-param>
+    接着容器会创建一个 ServletContext 对象 (也就是 servlet上下文 ), 这个 web 项目的所有部分都将共享这个上下文
+    在第一步读取的 <context-param> 信息 , 将会转换为键值对的形式 , 并交给 servletContext 对象
+    (这些键值对,会被 listener , filter 等使用到 ) 接着容器会创建 <listener> 注册的监听器对象
+    -->
+
+    <!-- 配置log4j配置文件路径 -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.properties</param-value>
+    </context-param>
+    <!-- 60s 检测日志配置 文件变化 -->
+    <context-param>
+        <param-name>log4jRefreshInterval</param-name>
+        <param-value>60000</param-value>
+    </context-param>
+
+    <!--加载spring contextLoader-->
+    <!--log4j:WARN No appenders could be found for logger
+    (org.springframework.web.context.ContextLoader).
+    log4j:WARN Please initialize the log4j system properly.
+    在报这个问题时，把下面的配置放在log4j之后。-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:applicationContext.xml,
+            classpath:spring-dubbo-consumer.xml
+        </param-value>
+    </context-param>
+
+    <!-- 配置Log4j监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+
     <!-- 加载spring容器-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,14 +64,6 @@
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:META-INF.spring/applicationContext.xml,
-            classpath:META-INF.spring/spring-dubbo-consumer.xml
-        </param-value>
-    </context-param>
 
     <request-character-encoding>UTF-8</request-character-encoding>
     <response-character-encoding>UTF-8</response-character-encoding>
@@ -111,7 +146,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:META-INF.spring/spring-mvc.xml</param-value>
+            <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
         <!-- 取消其自动注册的异常解析器 -->
         <init-param>
@@ -129,6 +164,5 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-
 
 </web-app>

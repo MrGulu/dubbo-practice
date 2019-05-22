@@ -57,30 +57,30 @@
         <!--<finalName>parent</finalName>-->
         <plugins>
             <!--用于打包源文件-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.plugin.version}</version>
-                <!--报红-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-source-plugin</artifactId>-->
+                <!--<version>${maven.source.plugin.version}</version>-->
+                <!--&lt;!&ndash;报红&ndash;&gt;-->
+                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<encoding>${jdk.version}</encoding>&ndash;&gt;-->
+                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
                 <!--<configuration>-->
-                    <!--<encoding>${jdk.version}</encoding>-->
+                    <!--<attach>true</attach>-->
                 <!--</configuration>-->
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <!--开发包排除，哪些东西不打算要-->
-                <!--把所有源代码中的jar排除掉？-->
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <!--在mvn的package生命周期就执行源码打包工作-->
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+                <!--&lt;!&ndash;开发包排除，哪些东西不打算要&ndash;&gt;-->
+                <!--&lt;!&ndash;把所有源代码中的jar排除掉？&ndash;&gt;-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>attach-sources</id>-->
+                        <!--&lt;!&ndash;在mvn的package生命周期就执行源码打包工作&ndash;&gt;-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>jar</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <!--定义Maven的编译插件-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

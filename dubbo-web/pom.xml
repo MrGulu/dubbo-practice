@@ -12,7 +12,7 @@
 
     <artifactId>dubbo-web</artifactId>
     <name>${project.artifactId}</name>
-    <!--web模块需要制定打包成war包-->
+    <!--web模块需要指定打包成war包-->
     <packaging>war</packaging>
 
     <properties>
@@ -49,11 +49,20 @@
     </dependencies>
 
     <profiles>
+        <!--将dev设置为默认激活，这个操作会将dev的文件夹设置为resources目录！-->
         <profile>
             <id>dev</id>
             <properties>
                 <profile.dir>${profiles.dir}/dev</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/dev</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -63,6 +72,14 @@
             <properties>
                 <profile.dir>${profiles.dir}/beta</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/beta</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -72,25 +89,45 @@
             <properties>
                 <profile.dir>${profiles.dir}/product</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/product</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
         </profile>
     </profiles>
 
+    <!--原来在resources目录下建立META-INF.spring文件夹存放资源配置文件，后来将这些
+    文件移出之后，将META-INF.spring文件夹删掉，发现打包的时候，在target/dubbo-web/WEB-INF/classes
+    文件夹下没有生成这些资源文件。
+    解决方法：①IDEA在project structure将resources目录置为非资源目录后，再将其置为资源目录。
+            ②直接在下面build额外再指定一遍resources为资源目录！
+    这个是IDE的问题？还是profiles标签中resources标签的原因？可是之前没删掉META-INF.spring文件夹
+    的时候没有问题啊。。。
+    -->
     <build>
         <finalName>dubbo-web</finalName>
         <!--由于上面已经指定打成war包了，所以这个地方不加这个插件也一样能打出war包，
         猜测是当需要排除某些内容不打入war包时使用这个插件，比如下面。-->
         <!--<plugins>-->
             <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
                 <!--<artifactId>maven-war-plugin</artifactId>-->
                 <!--<version>2.0.2</version>-->
-                <!--<configuration>-->
-                    <!--<warSourceExcludes>**/gulp/**</warSourceExcludes>-->
-                <!--</configuration>-->
             <!--</plugin>-->
         <!--</plugins>-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 

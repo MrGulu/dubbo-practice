@@ -12,11 +12,11 @@
 
     <packaging>jar</packaging>
 
-    <!--在制定了parent父模块之后，子模块就继承了父模块的groupId和version-->
+    <!--在指定了parent父模块之后，子模块就继承了父模块的groupId和version-->
     <artifactId>dubbo-service</artifactId>
     <name>${project.artifactId}</name>
     <!--在继承了父模块后，下面的这些属性配置就不应该再指定了，因为已经在父模块中指定了,
-    可是在下面引用的时候找不到，必须在本module里面也制定？-->
+    可是在下面引用的时候找不到，必须在本module里面也指定？-->
     <!--<properties>-->
     <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
     <!--</properties>-->
@@ -69,6 +69,14 @@
             <properties>
                 <profile.dir>${profiles.dir}/dev</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/dev</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -78,6 +86,14 @@
             <properties>
                 <profile.dir>${profiles.dir}/beta</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/beta</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -87,6 +103,14 @@
             <properties>
                 <profile.dir>${profiles.dir}/product</profile.dir>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/product</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -125,7 +149,7 @@
                             <!--生成的manifest中classpath的前缀，因为要把第三方jar放到lib目录下，所以classpath的前缀是lib/-->
                             <classpathPrefix>lib/</classpathPrefix>
                             <!--  应用的  main class  -->
-                            <mainClass>com.caxs.mdd.runner.ServiceProvider</mainClass>
+                            <mainClass>cn.tang.runner.ProviderStartup</mainClass>
                         </manifest>
                     </archive>
                     <!--报红？-->
@@ -194,6 +218,7 @@
                             <artifactId>appolloclient</artifactId>
                             <version>11.0</version>
                             <packaging>jar</packaging>
+                            <!--在目录下生成maven-metadata-local.xml文件-->
                             <generatePom>true</generatePom>
                         </configuration>
                         <goals>
@@ -211,6 +236,7 @@
                             <artifactId>appollocore</artifactId>
                             <version>11.0</version>
                             <packaging>jar</packaging>
+                            <!--在目录下生成maven-metadata-local.xml文件-->
                             <generatePom>true</generatePom>
                         </configuration>
                         <goals>

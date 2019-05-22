@@ -15,7 +15,7 @@ public class MessageImplTest {
 //    @Qualifier("messageImpl")
     @Resource(name = "messageImpl")
     private IMessage message;
-
+//调用哪个service依然是不确定的。。。！！！
     @Test
     public void echo() {
         System.out.println(message.echo("*****************Hello Dubbo!!!*******************"));

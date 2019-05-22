@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class MessageImpl2 implements IMessage {
     @Override
     public String echo(String msg) {
+        System.out.println("ECHO2222222:" + msg);
         return "ECHO2222222:" + msg;
     }
 }

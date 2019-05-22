@@ -12,7 +12,7 @@
     <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:/dev/config/dubbo.properties</value>
+                <value>classpath:/config/dubbo.properties</value>
             </list>
         </property>
     </bean>
