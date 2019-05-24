@@ -55,6 +55,9 @@
             <properties>
                 <profile.dir>${profiles.dir}/dev</profile.dir>
             </properties>
+            <!--设置之后用maven Reimport之后，对应设置的目录就变成resources目录，
+            但是之前true改成false的目录依然是resources目录，并没有因为改为false目录
+            而取消变成resources目录，只能手动IDE将其取消，否则打包时会出问题！-->
             <build>
                 <resources>
                     <resource>

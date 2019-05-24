@@ -9,11 +9,15 @@
     <welcome-file-list>
         <welcome-file>/static/html/index.html</welcome-file>
     </welcome-file-list>
-
+    <!--定义不同的错误码跳转不同的错误提示页-->
     <error-page>
+        <error-code>404</error-code>
         <location>/static/html/error/404.html</location>
     </error-page>
-
+    <error-page>
+        <error-code>500</error-code>
+        <location>/static/html/error/500.html</location>
+    </error-page>
     <!--
         在web.xml中，有此加载顺序： context-param -> listener -> filter -> servlet
     但是跟在web.xml中的位置无关，tomcat会按照上面的顺序找标签，然后加载！
