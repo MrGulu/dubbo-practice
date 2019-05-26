@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tang.base.dao.APPLMapper">
+  <resultMap id="BaseResultMap" type="cn.tang.base.bean.APPL">
+    <id column="APPL_SEQ" jdbcType="DECIMAL" property="applSeq" />
+    <result column="INSTU_CDE" jdbcType="VARCHAR" property="instuCde" />
+    <result column="APPL_CDE" jdbcType="VARCHAR" property="applCde" />
+    <result column="APPLY_DT" jdbcType="VARCHAR" property="applyDt" />
+    <result column="BCH_CDE" jdbcType="VARCHAR" property="bchCde" />
+    <result column="FORM" jdbcType="VARCHAR" property="form" />
+    <result column="CUST_ID" jdbcType="VARCHAR" property="custId" />
+    <result column="ID_TYP" jdbcType="VARCHAR" property="idTyp" />
+    <result column="ID_TYP_OTH" jdbcType="VARCHAR" property="idTypOth" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="MSS_IND" jdbcType="VARCHAR" property="mssInd" />
+    <result column="REJ_IND" jdbcType="VARCHAR" property="rejInd" />
+    <result column="LOAN_TYP" jdbcType="VARCHAR" property="loanTyp" />
+    <result column="TYP_SEQ" jdbcType="DECIMAL" property="typSeq" />
+    <result column="TYP_VER" jdbcType="DECIMAL" property="typVer" />
+    <result column="LOAN_PROM" jdbcType="VARCHAR" property="loanProm" />
+    <result column="PRO_PUR_AMT" jdbcType="DECIMAL" property="proPurAmt" />
+    <result column="FST_PCT" jdbcType="DECIMAL" property="fstPct" />
+    <result column="FST_PAY" jdbcType="DECIMAL" property="fstPay" />
+    <result column="LOAN_CCY" jdbcType="VARCHAR" property="loanCcy" />
+    <result column="PURPOSE" jdbcType="VARCHAR" property="purpose" />
+    <result column="OTHER_PURPOSE" jdbcType="VARCHAR" property="otherPurpose" />
+    <result column="APPLY_AMT" jdbcType="DECIMAL" property="applyAmt" />
+    <result column="APPRV_AMT" jdbcType="DECIMAL" property="apprvAmt" />
+    <result column="APPLY_TNR" jdbcType="VARCHAR" property="applyTnr" />
+    <result column="APPRV_TNR" jdbcType="VARCHAR" property="apprvTnr" />
+    <result column="LOAN_FREQ" jdbcType="VARCHAR" property="loanFreq" />
+    <result column="MTH_AMT" jdbcType="DECIMAL" property="mthAmt" />
+    <result column="DSR_RATIO" jdbcType="DECIMAL" property="dsrRatio" />
+    <result column="COLL_RATIO" jdbcType="DECIMAL" property="collRatio" />
+    <result column="WF_APPR_STS" jdbcType="VARCHAR" property="wfApprSts" />
+    <result column="APP_ORIGIN" jdbcType="VARCHAR" property="appOrigin" />
+    <result column="DOC_CHANNEL" jdbcType="VARCHAR" property="docChannel" />
+    <result column="SCORE" jdbcType="DECIMAL" property="score" />
+    <result column="SCORE_GRADE" jdbcType="VARCHAR" property="scoreGrade" />
+    <result column="COMPL_RESULT" jdbcType="VARCHAR" property="complResult" />
+    <result column="SIGN_DT" jdbcType="VARCHAR" property="signDt" />
+    <result column="CONT_NO" jdbcType="VARCHAR" property="contNo" />
+    <result column="CONT_AMT" jdbcType="DECIMAL" property="contAmt" />
+    <result column="MTD_CDE" jdbcType="VARCHAR" property="mtdCde" />
+    <result column="RATE_TYP" jdbcType="VARCHAR" property="rateTyp" />
+    <result column="MTD_MODE" jdbcType="VARCHAR" property="mtdMode" />
+    <result column="REPC_OPT" jdbcType="VARCHAR" property="repcOpt" />
+    <result column="BASIC_INT_RAT" jdbcType="DECIMAL" property="basicIntRat" />
+    <result column="PRICE_INT_RAT" jdbcType="DECIMAL" property="priceIntRat" />
+    <result column="SUPER_COOPR" jdbcType="VARCHAR" property="superCoopr" />
+    <result column="COOPR_CDE" jdbcType="VARCHAR" property="cooprCde" />
+    <result column="COOPR_NAME" jdbcType="VARCHAR" property="cooprName" />
+    <result column="COOPR_ZONE" jdbcType="VARCHAR" property="cooprZone" />
+    <result column="COOPR_TEL" jdbcType="VARCHAR" property="cooprTel" />
+    <result column="COOPR_SUB" jdbcType="VARCHAR" property="cooprSub" />
+    <result column="SALER_NAME" jdbcType="VARCHAR" property="salerName" />
+    <result column="SALER_MOBILE" jdbcType="VARCHAR" property="salerMobile" />
+    <result column="OPERATOR_CDE" jdbcType="VARCHAR" property="operatorCde" />
+    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+    <result column="OPERATOR_TEL" jdbcType="VARCHAR" property="operatorTel" />
+    <result column="CRT_USR" jdbcType="VARCHAR" property="crtUsr" />
+    <result column="CRT_DT" jdbcType="VARCHAR" property="crtDt" />
+    <result column="LAST_CHG_DT" jdbcType="VARCHAR" property="lastChgDt" />
+    <result column="LAST_CHG_USR" jdbcType="VARCHAR" property="lastChgUsr" />
+    <result column="TYP_GRP" jdbcType="VARCHAR" property="typGrp" />
+    <result column="GUTR_OPT" jdbcType="VARCHAR" property="gutrOpt" />
+    <result column="CRT_BCH" jdbcType="VARCHAR" property="crtBch" />
+    <result column="LOAN_OPT" jdbcType="VARCHAR" property="loanOpt" />
+    <result column="IN_STS" jdbcType="VARCHAR" property="inSts" />
+    <result column="OUT_STS" jdbcType="VARCHAR" property="outSts" />
+    <result column="VEH_CHASSIS" jdbcType="VARCHAR" property="vehChassis" />
+    <result column="APPLY_TNR_TYP" jdbcType="VARCHAR" property="applyTnrTyp" />
+    <result column="APPRV_TNR_TYP" jdbcType="VARCHAR" property="apprvTnrTyp" />
+    <result column="CRT_BCH_IND" jdbcType="VARCHAR" property="crtBchInd" />
+    <result column="RATE_RULE" jdbcType="VARCHAR" property="rateRule" />
+    <result column="DUE_DAY_OPT" jdbcType="VARCHAR" property="dueDayOpt" />
+    <result column="DUE_DAY" jdbcType="VARCHAR" property="dueDay" />
+    <result column="APP_IN_ADVICE" jdbcType="VARCHAR" property="appInAdvice" />
+    <result column="AVOID_IND" jdbcType="VARCHAR" property="avoidInd" />
+    <result column="LIC_CITY" jdbcType="VARCHAR" property="licCity" />
+    <result column="LIMIT_CITY_IND" jdbcType="VARCHAR" property="limitCityInd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    APPL_SEQ, INSTU_CDE, APPL_CDE, APPLY_DT, BCH_CDE, FORM, CUST_ID, ID_TYP, ID_TYP_OTH, 
+    ID_NO, CUST_NAME, MSS_IND, REJ_IND, LOAN_TYP, TYP_SEQ, TYP_VER, LOAN_PROM, PRO_PUR_AMT, 
+    FST_PCT, FST_PAY, LOAN_CCY, PURPOSE, OTHER_PURPOSE, APPLY_AMT, APPRV_AMT, APPLY_TNR, 
+    APPRV_TNR, LOAN_FREQ, MTH_AMT, DSR_RATIO, COLL_RATIO, WF_APPR_STS, APP_ORIGIN, DOC_CHANNEL, 
+    SCORE, SCORE_GRADE, COMPL_RESULT, SIGN_DT, CONT_NO, CONT_AMT, MTD_CDE, RATE_TYP, 
+    MTD_MODE, REPC_OPT, BASIC_INT_RAT, PRICE_INT_RAT, SUPER_COOPR, COOPR_CDE, COOPR_NAME, 
+    COOPR_ZONE, COOPR_TEL, COOPR_SUB, SALER_NAME, SALER_MOBILE, OPERATOR_CDE, OPERATOR_NAME, 
+    OPERATOR_TEL, CRT_USR, CRT_DT, LAST_CHG_DT, LAST_CHG_USR, TYP_GRP, GUTR_OPT, CRT_BCH, 
+    LOAN_OPT, IN_STS, OUT_STS, VEH_CHASSIS, APPLY_TNR_TYP, APPRV_TNR_TYP, CRT_BCH_IND, 
+    RATE_RULE, DUE_DAY_OPT, DUE_DAY, APP_IN_ADVICE, AVOID_IND, LIC_CITY, LIMIT_CITY_IND
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LC_APPL
+    where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from LC_APPL
+    where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cn.tang.base.bean.APPL">
+    insert into LC_APPL (APPL_SEQ, INSTU_CDE, APPL_CDE, 
+      APPLY_DT, BCH_CDE, FORM, 
+      CUST_ID, ID_TYP, ID_TYP_OTH, 
+      ID_NO, CUST_NAME, MSS_IND, 
+      REJ_IND, LOAN_TYP, TYP_SEQ, 
+      TYP_VER, LOAN_PROM, PRO_PUR_AMT, 
+      FST_PCT, FST_PAY, LOAN_CCY, 
+      PURPOSE, OTHER_PURPOSE, APPLY_AMT, 
+      APPRV_AMT, APPLY_TNR, APPRV_TNR, 
+      LOAN_FREQ, MTH_AMT, DSR_RATIO, 
+      COLL_RATIO, WF_APPR_STS, APP_ORIGIN, 
+      DOC_CHANNEL, SCORE, SCORE_GRADE, 
+      COMPL_RESULT, SIGN_DT, CONT_NO, 
+      CONT_AMT, MTD_CDE, RATE_TYP, 
+      MTD_MODE, REPC_OPT, BASIC_INT_RAT, 
+      PRICE_INT_RAT, SUPER_COOPR, COOPR_CDE, 
+      COOPR_NAME, COOPR_ZONE, COOPR_TEL, 
+      COOPR_SUB, SALER_NAME, SALER_MOBILE, 
+      OPERATOR_CDE, OPERATOR_NAME, OPERATOR_TEL, 
+      CRT_USR, CRT_DT, LAST_CHG_DT, 
+      LAST_CHG_USR, TYP_GRP, GUTR_OPT, 
+      CRT_BCH, LOAN_OPT, IN_STS, 
+      OUT_STS, VEH_CHASSIS, APPLY_TNR_TYP, 
+      APPRV_TNR_TYP, CRT_BCH_IND, RATE_RULE, 
+      DUE_DAY_OPT, DUE_DAY, APP_IN_ADVICE, 
+      AVOID_IND, LIC_CITY, LIMIT_CITY_IND
+      )
+    values (#{applSeq,jdbcType=DECIMAL}, #{instuCde,jdbcType=VARCHAR}, #{applCde,jdbcType=VARCHAR}, 
+      #{applyDt,jdbcType=VARCHAR}, #{bchCde,jdbcType=VARCHAR}, #{form,jdbcType=VARCHAR}, 
+      #{custId,jdbcType=VARCHAR}, #{idTyp,jdbcType=VARCHAR}, #{idTypOth,jdbcType=VARCHAR}, 
+      #{idNo,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{mssInd,jdbcType=VARCHAR}, 
+      #{rejInd,jdbcType=VARCHAR}, #{loanTyp,jdbcType=VARCHAR}, #{typSeq,jdbcType=DECIMAL}, 
+      #{typVer,jdbcType=DECIMAL}, #{loanProm,jdbcType=VARCHAR}, #{proPurAmt,jdbcType=DECIMAL}, 
+      #{fstPct,jdbcType=DECIMAL}, #{fstPay,jdbcType=DECIMAL}, #{loanCcy,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=VARCHAR}, #{otherPurpose,jdbcType=VARCHAR}, #{applyAmt,jdbcType=DECIMAL}, 
+      #{apprvAmt,jdbcType=DECIMAL}, #{applyTnr,jdbcType=VARCHAR}, #{apprvTnr,jdbcType=VARCHAR}, 
+      #{loanFreq,jdbcType=VARCHAR}, #{mthAmt,jdbcType=DECIMAL}, #{dsrRatio,jdbcType=DECIMAL}, 
+      #{collRatio,jdbcType=DECIMAL}, #{wfApprSts,jdbcType=VARCHAR}, #{appOrigin,jdbcType=VARCHAR}, 
+      #{docChannel,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL}, #{scoreGrade,jdbcType=VARCHAR}, 
+      #{complResult,jdbcType=VARCHAR}, #{signDt,jdbcType=VARCHAR}, #{contNo,jdbcType=VARCHAR}, 
+      #{contAmt,jdbcType=DECIMAL}, #{mtdCde,jdbcType=VARCHAR}, #{rateTyp,jdbcType=VARCHAR}, 
+      #{mtdMode,jdbcType=VARCHAR}, #{repcOpt,jdbcType=VARCHAR}, #{basicIntRat,jdbcType=DECIMAL}, 
+      #{priceIntRat,jdbcType=DECIMAL}, #{superCoopr,jdbcType=VARCHAR}, #{cooprCde,jdbcType=VARCHAR}, 
+      #{cooprName,jdbcType=VARCHAR}, #{cooprZone,jdbcType=VARCHAR}, #{cooprTel,jdbcType=VARCHAR}, 
+      #{cooprSub,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR}, #{salerMobile,jdbcType=VARCHAR}, 
+      #{operatorCde,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, #{operatorTel,jdbcType=VARCHAR}, 
+      #{crtUsr,jdbcType=VARCHAR}, #{crtDt,jdbcType=VARCHAR}, #{lastChgDt,jdbcType=VARCHAR}, 
+      #{lastChgUsr,jdbcType=VARCHAR}, #{typGrp,jdbcType=VARCHAR}, #{gutrOpt,jdbcType=VARCHAR}, 
+      #{crtBch,jdbcType=VARCHAR}, #{loanOpt,jdbcType=VARCHAR}, #{inSts,jdbcType=VARCHAR}, 
+      #{outSts,jdbcType=VARCHAR}, #{vehChassis,jdbcType=VARCHAR}, #{applyTnrTyp,jdbcType=VARCHAR}, 
+      #{apprvTnrTyp,jdbcType=VARCHAR}, #{crtBchInd,jdbcType=VARCHAR}, #{rateRule,jdbcType=VARCHAR}, 
+      #{dueDayOpt,jdbcType=VARCHAR}, #{dueDay,jdbcType=VARCHAR}, #{appInAdvice,jdbcType=VARCHAR}, 
+      #{avoidInd,jdbcType=VARCHAR}, #{licCity,jdbcType=VARCHAR}, #{limitCityInd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tang.base.bean.APPL">
+    insert into LC_APPL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applSeq != null">
+        APPL_SEQ,
+      </if>
+      <if test="instuCde != null">
+        INSTU_CDE,
+      </if>
+      <if test="applCde != null">
+        APPL_CDE,
+      </if>
+      <if test="applyDt != null">
+        APPLY_DT,
+      </if>
+      <if test="bchCde != null">
+        BCH_CDE,
+      </if>
+      <if test="form != null">
+        FORM,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="idTyp != null">
+        ID_TYP,
+      </if>
+      <if test="idTypOth != null">
+        ID_TYP_OTH,
+      </if>
+      <if test="idNo != null">
+        ID_NO,
+      </if>
+      <if test="custName != null">
+        CUST_NAME,
+      </if>
+      <if test="mssInd != null">
+        MSS_IND,
+      </if>
+      <if test="rejInd != null">
+        REJ_IND,
+      </if>
+      <if test="loanTyp != null">
+        LOAN_TYP,
+      </if>
+      <if test="typSeq != null">
+        TYP_SEQ,
+      </if>
+      <if test="typVer != null">
+        TYP_VER,
+      </if>
+      <if test="loanProm != null">
+        LOAN_PROM,
+      </if>
+      <if test="proPurAmt != null">
+        PRO_PUR_AMT,
+      </if>
+      <if test="fstPct != null">
+        FST_PCT,
+      </if>
+      <if test="fstPay != null">
+        FST_PAY,
+      </if>
+      <if test="loanCcy != null">
+        LOAN_CCY,
+      </if>
+      <if test="purpose != null">
+        PURPOSE,
+      </if>
+      <if test="otherPurpose != null">
+        OTHER_PURPOSE,
+      </if>
+      <if test="applyAmt != null">
+        APPLY_AMT,
+      </if>
+      <if test="apprvAmt != null">
+        APPRV_AMT,
+      </if>
+      <if test="applyTnr != null">
+        APPLY_TNR,
+      </if>
+      <if test="apprvTnr != null">
+        APPRV_TNR,
+      </if>
+      <if test="loanFreq != null">
+        LOAN_FREQ,
+      </if>
+      <if test="mthAmt != null">
+        MTH_AMT,
+      </if>
+      <if test="dsrRatio != null">
+        DSR_RATIO,
+      </if>
+      <if test="collRatio != null">
+        COLL_RATIO,
+      </if>
+      <if test="wfApprSts != null">
+        WF_APPR_STS,
+      </if>
+      <if test="appOrigin != null">
+        APP_ORIGIN,
+      </if>
+      <if test="docChannel != null">
+        DOC_CHANNEL,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="scoreGrade != null">
+        SCORE_GRADE,
+      </if>
+      <if test="complResult != null">
+        COMPL_RESULT,
+      </if>
+      <if test="signDt != null">
+        SIGN_DT,
+      </if>
+      <if test="contNo != null">
+        CONT_NO,
+      </if>
+      <if test="contAmt != null">
+        CONT_AMT,
+      </if>
+      <if test="mtdCde != null">
+        MTD_CDE,
+      </if>
+      <if test="rateTyp != null">
+        RATE_TYP,
+      </if>
+      <if test="mtdMode != null">
+        MTD_MODE,
+      </if>
+      <if test="repcOpt != null">
+        REPC_OPT,
+      </if>
+      <if test="basicIntRat != null">
+        BASIC_INT_RAT,
+      </if>
+      <if test="priceIntRat != null">
+        PRICE_INT_RAT,
+      </if>
+      <if test="superCoopr != null">
+        SUPER_COOPR,
+      </if>
+      <if test="cooprCde != null">
+        COOPR_CDE,
+      </if>
+      <if test="cooprName != null">
+        COOPR_NAME,
+      </if>
+      <if test="cooprZone != null">
+        COOPR_ZONE,
+      </if>
+      <if test="cooprTel != null">
+        COOPR_TEL,
+      </if>
+      <if test="cooprSub != null">
+        COOPR_SUB,
+      </if>
+      <if test="salerName != null">
+        SALER_NAME,
+      </if>
+      <if test="salerMobile != null">
+        SALER_MOBILE,
+      </if>
+      <if test="operatorCde != null">
+        OPERATOR_CDE,
+      </if>
+      <if test="operatorName != null">
+        OPERATOR_NAME,
+      </if>
+      <if test="operatorTel != null">
+        OPERATOR_TEL,
+      </if>
+      <if test="crtUsr != null">
+        CRT_USR,
+      </if>
+      <if test="crtDt != null">
+        CRT_DT,
+      </if>
+      <if test="lastChgDt != null">
+        LAST_CHG_DT,
+      </if>
+      <if test="lastChgUsr != null">
+        LAST_CHG_USR,
+      </if>
+      <if test="typGrp != null">
+        TYP_GRP,
+      </if>
+      <if test="gutrOpt != null">
+        GUTR_OPT,
+      </if>
+      <if test="crtBch != null">
+        CRT_BCH,
+      </if>
+      <if test="loanOpt != null">
+        LOAN_OPT,
+      </if>
+      <if test="inSts != null">
+        IN_STS,
+      </if>
+      <if test="outSts != null">
+        OUT_STS,
+      </if>
+      <if test="vehChassis != null">
+        VEH_CHASSIS,
+      </if>
+      <if test="applyTnrTyp != null">
+        APPLY_TNR_TYP,
+      </if>
+      <if test="apprvTnrTyp != null">
+        APPRV_TNR_TYP,
+      </if>
+      <if test="crtBchInd != null">
+        CRT_BCH_IND,
+      </if>
+      <if test="rateRule != null">
+        RATE_RULE,
+      </if>
+      <if test="dueDayOpt != null">
+        DUE_DAY_OPT,
+      </if>
+      <if test="dueDay != null">
+        DUE_DAY,
+      </if>
+      <if test="appInAdvice != null">
+        APP_IN_ADVICE,
+      </if>
+      <if test="avoidInd != null">
+        AVOID_IND,
+      </if>
+      <if test="licCity != null">
+        LIC_CITY,
+      </if>
+      <if test="limitCityInd != null">
+        LIMIT_CITY_IND,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applSeq != null">
+        #{applSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="instuCde != null">
+        #{instuCde,jdbcType=VARCHAR},
+      </if>
+      <if test="applCde != null">
+        #{applCde,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDt != null">
+        #{applyDt,jdbcType=VARCHAR},
+      </if>
+      <if test="bchCde != null">
+        #{bchCde,jdbcType=VARCHAR},
+      </if>
+      <if test="form != null">
+        #{form,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="idTyp != null">
+        #{idTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="idTypOth != null">
+        #{idTypOth,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="mssInd != null">
+        #{mssInd,jdbcType=VARCHAR},
+      </if>
+      <if test="rejInd != null">
+        #{rejInd,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTyp != null">
+        #{loanTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="typSeq != null">
+        #{typSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="typVer != null">
+        #{typVer,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProm != null">
+        #{loanProm,jdbcType=VARCHAR},
+      </if>
+      <if test="proPurAmt != null">
+        #{proPurAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="fstPct != null">
+        #{fstPct,jdbcType=DECIMAL},
+      </if>
+      <if test="fstPay != null">
+        #{fstPay,jdbcType=DECIMAL},
+      </if>
+      <if test="loanCcy != null">
+        #{loanCcy,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="otherPurpose != null">
+        #{otherPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAmt != null">
+        #{applyAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="apprvAmt != null">
+        #{apprvAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTnr != null">
+        #{applyTnr,jdbcType=VARCHAR},
+      </if>
+      <if test="apprvTnr != null">
+        #{apprvTnr,jdbcType=VARCHAR},
+      </if>
+      <if test="loanFreq != null">
+        #{loanFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="mthAmt != null">
+        #{mthAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dsrRatio != null">
+        #{dsrRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="collRatio != null">
+        #{collRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="wfApprSts != null">
+        #{wfApprSts,jdbcType=VARCHAR},
+      </if>
+      <if test="appOrigin != null">
+        #{appOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="docChannel != null">
+        #{docChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreGrade != null">
+        #{scoreGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="complResult != null">
+        #{complResult,jdbcType=VARCHAR},
+      </if>
+      <if test="signDt != null">
+        #{signDt,jdbcType=VARCHAR},
+      </if>
+      <if test="contNo != null">
+        #{contNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contAmt != null">
+        #{contAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="mtdCde != null">
+        #{mtdCde,jdbcType=VARCHAR},
+      </if>
+      <if test="rateTyp != null">
+        #{rateTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="mtdMode != null">
+        #{mtdMode,jdbcType=VARCHAR},
+      </if>
+      <if test="repcOpt != null">
+        #{repcOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="basicIntRat != null">
+        #{basicIntRat,jdbcType=DECIMAL},
+      </if>
+      <if test="priceIntRat != null">
+        #{priceIntRat,jdbcType=DECIMAL},
+      </if>
+      <if test="superCoopr != null">
+        #{superCoopr,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprCde != null">
+        #{cooprCde,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprName != null">
+        #{cooprName,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprZone != null">
+        #{cooprZone,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprTel != null">
+        #{cooprTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprSub != null">
+        #{cooprSub,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerMobile != null">
+        #{salerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCde != null">
+        #{operatorCde,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTel != null">
+        #{operatorTel,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsr != null">
+        #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDt != null">
+        #{crtDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgDt != null">
+        #{lastChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgUsr != null">
+        #{lastChgUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="typGrp != null">
+        #{typGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="gutrOpt != null">
+        #{gutrOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtBch != null">
+        #{crtBch,jdbcType=VARCHAR},
+      </if>
+      <if test="loanOpt != null">
+        #{loanOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="inSts != null">
+        #{inSts,jdbcType=VARCHAR},
+      </if>
+      <if test="outSts != null">
+        #{outSts,jdbcType=VARCHAR},
+      </if>
+      <if test="vehChassis != null">
+        #{vehChassis,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTnrTyp != null">
+        #{applyTnrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="apprvTnrTyp != null">
+        #{apprvTnrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="crtBchInd != null">
+        #{crtBchInd,jdbcType=VARCHAR},
+      </if>
+      <if test="rateRule != null">
+        #{rateRule,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDayOpt != null">
+        #{dueDayOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDay != null">
+        #{dueDay,jdbcType=VARCHAR},
+      </if>
+      <if test="appInAdvice != null">
+        #{appInAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="avoidInd != null">
+        #{avoidInd,jdbcType=VARCHAR},
+      </if>
+      <if test="licCity != null">
+        #{licCity,jdbcType=VARCHAR},
+      </if>
+      <if test="limitCityInd != null">
+        #{limitCityInd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tang.base.bean.APPL">
+    update LC_APPL
+    <set>
+      <if test="instuCde != null">
+        INSTU_CDE = #{instuCde,jdbcType=VARCHAR},
+      </if>
+      <if test="applCde != null">
+        APPL_CDE = #{applCde,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDt != null">
+        APPLY_DT = #{applyDt,jdbcType=VARCHAR},
+      </if>
+      <if test="bchCde != null">
+        BCH_CDE = #{bchCde,jdbcType=VARCHAR},
+      </if>
+      <if test="form != null">
+        FORM = #{form,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="idTyp != null">
+        ID_TYP = #{idTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="idTypOth != null">
+        ID_TYP_OTH = #{idTypOth,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="mssInd != null">
+        MSS_IND = #{mssInd,jdbcType=VARCHAR},
+      </if>
+      <if test="rejInd != null">
+        REJ_IND = #{rejInd,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTyp != null">
+        LOAN_TYP = #{loanTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="typSeq != null">
+        TYP_SEQ = #{typSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="typVer != null">
+        TYP_VER = #{typVer,jdbcType=DECIMAL},
+      </if>
+      <if test="loanProm != null">
+        LOAN_PROM = #{loanProm,jdbcType=VARCHAR},
+      </if>
+      <if test="proPurAmt != null">
+        PRO_PUR_AMT = #{proPurAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="fstPct != null">
+        FST_PCT = #{fstPct,jdbcType=DECIMAL},
+      </if>
+      <if test="fstPay != null">
+        FST_PAY = #{fstPay,jdbcType=DECIMAL},
+      </if>
+      <if test="loanCcy != null">
+        LOAN_CCY = #{loanCcy,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        PURPOSE = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="otherPurpose != null">
+        OTHER_PURPOSE = #{otherPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAmt != null">
+        APPLY_AMT = #{applyAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="apprvAmt != null">
+        APPRV_AMT = #{apprvAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTnr != null">
+        APPLY_TNR = #{applyTnr,jdbcType=VARCHAR},
+      </if>
+      <if test="apprvTnr != null">
+        APPRV_TNR = #{apprvTnr,jdbcType=VARCHAR},
+      </if>
+      <if test="loanFreq != null">
+        LOAN_FREQ = #{loanFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="mthAmt != null">
+        MTH_AMT = #{mthAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dsrRatio != null">
+        DSR_RATIO = #{dsrRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="collRatio != null">
+        COLL_RATIO = #{collRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="wfApprSts != null">
+        WF_APPR_STS = #{wfApprSts,jdbcType=VARCHAR},
+      </if>
+      <if test="appOrigin != null">
+        APP_ORIGIN = #{appOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="docChannel != null">
+        DOC_CHANNEL = #{docChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreGrade != null">
+        SCORE_GRADE = #{scoreGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="complResult != null">
+        COMPL_RESULT = #{complResult,jdbcType=VARCHAR},
+      </if>
+      <if test="signDt != null">
+        SIGN_DT = #{signDt,jdbcType=VARCHAR},
+      </if>
+      <if test="contNo != null">
+        CONT_NO = #{contNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contAmt != null">
+        CONT_AMT = #{contAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="mtdCde != null">
+        MTD_CDE = #{mtdCde,jdbcType=VARCHAR},
+      </if>
+      <if test="rateTyp != null">
+        RATE_TYP = #{rateTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="mtdMode != null">
+        MTD_MODE = #{mtdMode,jdbcType=VARCHAR},
+      </if>
+      <if test="repcOpt != null">
+        REPC_OPT = #{repcOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="basicIntRat != null">
+        BASIC_INT_RAT = #{basicIntRat,jdbcType=DECIMAL},
+      </if>
+      <if test="priceIntRat != null">
+        PRICE_INT_RAT = #{priceIntRat,jdbcType=DECIMAL},
+      </if>
+      <if test="superCoopr != null">
+        SUPER_COOPR = #{superCoopr,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprCde != null">
+        COOPR_CDE = #{cooprCde,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprName != null">
+        COOPR_NAME = #{cooprName,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprZone != null">
+        COOPR_ZONE = #{cooprZone,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprTel != null">
+        COOPR_TEL = #{cooprTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cooprSub != null">
+        COOPR_SUB = #{cooprSub,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerMobile != null">
+        SALER_MOBILE = #{salerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCde != null">
+        OPERATOR_CDE = #{operatorCde,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        OPERATOR_NAME = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTel != null">
+        OPERATOR_TEL = #{operatorTel,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsr != null">
+        CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDt != null">
+        CRT_DT = #{crtDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgDt != null">
+        LAST_CHG_DT = #{lastChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgUsr != null">
+        LAST_CHG_USR = #{lastChgUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="typGrp != null">
+        TYP_GRP = #{typGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="gutrOpt != null">
+        GUTR_OPT = #{gutrOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtBch != null">
+        CRT_BCH = #{crtBch,jdbcType=VARCHAR},
+      </if>
+      <if test="loanOpt != null">
+        LOAN_OPT = #{loanOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="inSts != null">
+        IN_STS = #{inSts,jdbcType=VARCHAR},
+      </if>
+      <if test="outSts != null">
+        OUT_STS = #{outSts,jdbcType=VARCHAR},
+      </if>
+      <if test="vehChassis != null">
+        VEH_CHASSIS = #{vehChassis,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTnrTyp != null">
+        APPLY_TNR_TYP = #{applyTnrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="apprvTnrTyp != null">
+        APPRV_TNR_TYP = #{apprvTnrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="crtBchInd != null">
+        CRT_BCH_IND = #{crtBchInd,jdbcType=VARCHAR},
+      </if>
+      <if test="rateRule != null">
+        RATE_RULE = #{rateRule,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDayOpt != null">
+        DUE_DAY_OPT = #{dueDayOpt,jdbcType=VARCHAR},
+      </if>
+      <if test="dueDay != null">
+        DUE_DAY = #{dueDay,jdbcType=VARCHAR},
+      </if>
+      <if test="appInAdvice != null">
+        APP_IN_ADVICE = #{appInAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="avoidInd != null">
+        AVOID_IND = #{avoidInd,jdbcType=VARCHAR},
+      </if>
+      <if test="licCity != null">
+        LIC_CITY = #{licCity,jdbcType=VARCHAR},
+      </if>
+      <if test="limitCityInd != null">
+        LIMIT_CITY_IND = #{limitCityInd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -28,4 +28,7 @@
     注册当前类到spring容器中，否则是找不到的！-->
     <dubbo:service interface="cn.tang.base.service.IMessage" ref="messageImpl" version="${dubbo.interface.version}"/>
     <dubbo:service interface="cn.tang.base.service.IMessage" ref="messageImpl2" version="${dubbo.interface.version}"/>
+
+
+    <dubbo:service interface="cn.tang.base.service.IApplService" ref="applService" version="${dubbo.interface.version}"/>
 </beans>

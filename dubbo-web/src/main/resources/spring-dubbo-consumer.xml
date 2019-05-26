@@ -27,4 +27,7 @@
     <dubbo:reference interface="cn.tang.base.service.IMessage" id="messageImpl" timeout="${dubbo.provider.timeout}"
                      version="${dubbo.interface.version}"/>
 
+    <dubbo:reference interface="cn.tang.base.service.IApplService" id="applService" timeout="${dubbo.provider.timeout}"
+                     version="${dubbo.interface.version}"/>
+
 </beans>
