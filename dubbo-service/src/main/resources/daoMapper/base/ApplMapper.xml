@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.tang.base.dao.APPLMapper">
-  <resultMap id="BaseResultMap" type="cn.tang.base.bean.APPL">
+<mapper namespace="cn.tang.base.dao.ApplMapper">
+  <resultMap id="BaseResultMap" type="cn.tang.base.bean.Appl">
     <id column="APPL_SEQ" jdbcType="DECIMAL" property="applSeq" />
     <result column="INSTU_CDE" jdbcType="VARCHAR" property="instuCde" />
     <result column="APPL_CDE" jdbcType="VARCHAR" property="applCde" />
@@ -103,7 +103,7 @@
     delete from LC_APPL
     where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
   </delete>
-  <insert id="insert" parameterType="cn.tang.base.bean.APPL">
+  <insert id="insert" parameterType="cn.tang.base.bean.Appl">
     insert into LC_APPL (APPL_SEQ, INSTU_CDE, APPL_CDE, 
       APPLY_DT, BCH_CDE, FORM, 
       CUST_ID, ID_TYP, ID_TYP_OTH, 
@@ -159,7 +159,7 @@
       #{avoidInd,jdbcType=VARCHAR}, #{licCity,jdbcType=VARCHAR}, #{limitCityInd,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.tang.base.bean.APPL">
+  <insert id="insertSelective" parameterType="cn.tang.base.bean.Appl">
     insert into LC_APPL
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="applSeq != null">
@@ -634,7 +634,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.tang.base.bean.APPL">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tang.base.bean.Appl">
     update LC_APPL
     <set>
       <if test="instuCde != null">

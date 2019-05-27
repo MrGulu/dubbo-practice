@@ -1,6 +1,6 @@
 package cn.tang.base.web;
 
-import cn.tang.base.bean.APPL;
+import cn.tang.base.bean.Appl;
 import cn.tang.base.service.IApplService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class TestController {
             msg = e.getMessage();
         }
         if (Objects.isNull(msg)) {
-            APPL appl = applService.selectByApplSeq(new BigDecimal(applSeq));
+            Appl appl = applService.selectByApplSeq(new BigDecimal(applSeq));
             rtnMap.put("code", "0");
             rtnMap.put("message", "success");
             rtnMap.put("data", appl);
