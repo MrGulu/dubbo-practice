@@ -1,11 +1,12 @@
 package cn.tang.base.bean;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-@Slf4j
-public class APPL implements Serializable {
+
+@Data
+public class Appl implements Serializable {
     private BigDecimal applSeq;
 
     private String instuCde;
