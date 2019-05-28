@@ -66,13 +66,6 @@
         </dependency>
         <!-- servlet end -->
 
-        <!--httpclient工具包-->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.1</version>
-        </dependency>
-
         <!-- mysql连接 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -124,6 +117,33 @@
             <version>${jackson.version}</version>
         </dependency>
         <!-- json end-->
+
+        <!--xml start-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <!--xml end-->
+
+        <!--在RSASignUtils.java中用到-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+        </dependency>
 
         <!-- 文件上传 start-->
         <dependency>
@@ -230,7 +250,20 @@
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
         </dependency>
+        <!--org.apache.commons.httpclient.*-->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
         <!--定义commons的组件包 end-->
+
+        <!--httpclient工具包-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.1</version>
+        </dependency>
 
         <!--jedis-->
         <dependency>
