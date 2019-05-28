@@ -10,6 +10,7 @@
     <!--启用spring注解-->
     <context:annotation-config/>
     <!--配置扫描包-->
+    <!--在spring-mvc.xml中已经配置了只扫描@Controller注解，所以这里将其去掉。-->
     <context:component-scan base-package="cn.tang">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>

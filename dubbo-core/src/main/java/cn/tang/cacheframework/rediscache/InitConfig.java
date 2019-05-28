@@ -4,6 +4,9 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -71,17 +74,17 @@ public class InitConfig {
     }
 
     private Properties initProp(String configFile) {
-        return null;
+//        return null;
         // RedisFactory.class.getClassLoader().getResourceAsStream(configFile);
-
-//        Properties properties = new Properties();
-//        try {
-//            InputStream fis = new FileInputStream( configFile );
-//            properties.load(fis);
-//        } catch (IOException e) {
-//            throw new RuntimeException("redis config File is not exist", e);
-//        }
-//        return properties;
+//        下面是读配置方式，如果改成了Apollo，那么下面注释掉，直接return null;
+        Properties properties = new Properties();
+        try {
+            InputStream fis = new FileInputStream(configFile);
+            properties.load(fis);
+        } catch (IOException e) {
+            throw new RuntimeException("redis config File is not exist", e);
+        }
+        return properties;
     }
 
     private JedisPoolConfig getJedisPoolConfig(Properties properties) {
