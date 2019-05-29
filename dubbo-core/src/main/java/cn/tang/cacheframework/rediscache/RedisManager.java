@@ -11,7 +11,7 @@ import redis.clients.jedis.ShardedJedisPool;
 import java.util.*;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: redisManager
  * @date 2018/7/10 9:29
  */

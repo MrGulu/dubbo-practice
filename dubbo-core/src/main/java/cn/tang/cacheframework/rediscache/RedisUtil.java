@@ -5,7 +5,7 @@ import redis.clients.jedis.Jedis;
 import java.io.*;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: redis序列化对象工具类
  * @date 2018/7/10 9:28
  */

@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @ClassName(类名) : HttpUtil
  * @Description(描述) : http请求调用工具类
- * @author(作者) ：曹轩
+ * @author(作者) ：tangwenlong
  * @date (开发日期)      ：2016-6-2 上午9:12:44
  */
 public class HttpUtil {
@@ -33,7 +33,7 @@ public class HttpUtil {
      * @param param
      * @return String
      * @Description(功能描述) : 发送Post请求（返回字符串信息）
-     * @author(作者) ：  曹轩
+     * @author(作者) ：  tangwenlong
      * @date (开发日期)          :  2016-6-2 上午9:13:30
      */
 	/*

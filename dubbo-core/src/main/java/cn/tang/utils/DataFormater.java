@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 /**
- * @author 郑翔
+ * @author tangwenlong
  */
 public class DataFormater {
     /**
@@ -212,8 +212,8 @@ public class DataFormater {
     /**
      * @param b
      * @return
-     * @Date:2014-1-11
-     * @author:温亦汝
+     * @Date 2014-1-11
+     * @author tangwenlong
      */
     public static String byteToHexString(byte b) {
         int n = b;

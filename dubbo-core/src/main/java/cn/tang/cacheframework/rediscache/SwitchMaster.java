@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: 切换主节点
  * @date 2018/7/10 13:37
  */
@@ -38,7 +38,7 @@ public class SwitchMaster {
 
     /**
      * @description: 执行节点切换, 找到第一个无效master的index, 将无效master加入无效服务器列表, 并进行？？？？
-     * @author yanglingxiao
+     * @author tangwenlong
      * @date 2018/7/10 15:35
      */
     public void doSwitch() {

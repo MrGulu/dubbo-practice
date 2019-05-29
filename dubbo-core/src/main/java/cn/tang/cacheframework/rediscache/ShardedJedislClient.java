@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: ShardedJedislClient
  * @date 2018/7/10 13:39
  */

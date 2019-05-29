@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
  * 功能描述：
  * 2014年1月10日
  *
- * @author 郑翔
+ * @author tangwenlong
  */
 public class MD5Utils {
     protected static MessageDigest messagedigest = null;

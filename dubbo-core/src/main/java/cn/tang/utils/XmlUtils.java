@@ -16,7 +16,7 @@ import java.lang.annotation.Annotation;
 /**
  * XML工具类
  *
- * @author wangqi
+ * @author tangwenlong
  */
 public final class XmlUtils {
 

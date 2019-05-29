@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: redis工厂类
  * @date 2018/7/10 14:07
  */

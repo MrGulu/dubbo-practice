@@ -85,7 +85,7 @@ public class DigestUtils {
      * @return String signature
      * @Param String a
      * @Description(功能描述) :  SHA-1加密
-     * @author(作者) ：  延子恒
+     * @author(作者) ：  tangwenlong
      * @date (开发日期)          :  2016-12-20 下午6:53:55
      */
     public static String sha1(String input) throws IOException {

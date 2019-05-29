@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: redis缓存管理器
  * @date 2018/7/9 18:42
  */

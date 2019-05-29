@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * @author zhengxiang
+ * @author tangwenlong
  * redis缓存客户端
  */
 public class RedisClient {

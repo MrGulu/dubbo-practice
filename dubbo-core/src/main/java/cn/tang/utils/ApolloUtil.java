@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author ：YanZiheng：
+ * @author ：tangwenlong：
  * @Description ：Apollo配置中心
  * @date ：2018-9-13
  */
@@ -23,7 +23,7 @@ public class ApolloUtil {
     private static Config config;
 
     /**
-     * @author ：YanZiheng：
+     * @author ：tangwenlong：
      * @Description ：获取默认namespace的配置
      * @date ：2018-9-13
      */
@@ -37,7 +37,7 @@ public class ApolloUtil {
 
 
     /**
-     * @author ：YanZiheng：
+     * @author ：tangwenlong：
      * @Description ：获取其他namespace的配置
      * @date ：2018-9-13
      */
@@ -50,7 +50,7 @@ public class ApolloUtil {
     }
 
     /**
-     * @author ：YanZiheng：
+     * @author ：tangwenlong：
      * @Description ：获取为本系统提供服务的接口地址
      * @date ：2018-10-24
      */

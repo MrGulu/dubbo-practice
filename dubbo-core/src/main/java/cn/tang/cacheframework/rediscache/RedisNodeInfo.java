@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author yanglingxiao
+ * @author tangwenlong
  * @description: redis节点信息类
  * @date 2018/7/10 9:28
  */
