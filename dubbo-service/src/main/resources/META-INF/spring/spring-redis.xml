@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        ">
+
+    <!--缓存工厂-->
+    <bean id="cacheAdminFactory" class="cn.tang.cacheframework.cache.CacheAdminFactory"
+          factory-method="getInstance">
+        <constructor-arg index="0" type="java.lang.String" value="redis"/>
+        <constructor-arg index="1" type="java.lang.String" value="${CONF_HOME}/redis.properties"/>
+    </bean>
+
+    <!--
+    1.${project.build.sourceDirectory}
+    E:\workspace\dubbo-practice\dubbo-web\src\main\java
+    2.${project.build.outputDirectory}
+    E:\workspace\dubbo-practice\dubbo-web\target\classes
+    3.${project.build.directory}
+    E:\workspace\dubbo-practice\dubbo-web\target
+    -->
+
+    <!--缓存客户端-->
+    <bean id="cacheClient" factory-bean="cacheAdminFactory" factory-method="getCacheClient"/>
+
+    <!--缓存管理-->
+    <bean id="redisManager" class="cn.tang.base.redis.RedisManager">
+        <property name="group" value="redisCli1"/>
+        <property name="cacheClient" ref="cacheClient"/>
+    </bean>
+
+</beans>

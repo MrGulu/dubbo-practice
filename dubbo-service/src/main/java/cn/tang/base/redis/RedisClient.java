@@ -9,11 +9,9 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * @author tangwenlong
- * @description: redis缓存客户端
- * @date 2019/5/28
+ * @author zhengxiang
+ * redis缓存客户端
  */
-@SuppressWarnings("hiding")
 public class RedisClient {
     private static Logger logger = LoggerFactory.getLogger("RedisClient.class");
 
@@ -25,17 +23,12 @@ public class RedisClient {
         this.cacheClient = cacheClient;
     }
 
-    @SuppressWarnings("unused")
     public void setCacheClient(ICacheClient cacheClient) {
         this.cacheClient = cacheClient;
     }
 
     public void setGroup(String group) {
         this.group = group;
-    }
-
-    public String getGroup() {
-        return this.group;
     }
 
     public Object get(String key) {
@@ -50,7 +43,6 @@ public class RedisClient {
         return cacheClient.put(group, key, value, ttl) ? value : null;
     }
 
-    @SuppressWarnings("unused")
     public Object setSign(String key, Object value, Integer ttl) {
         if (cacheClient.put(group, key, value, ttl)) {
             return value;
@@ -67,8 +59,8 @@ public class RedisClient {
         return cacheClient.remove(group, key);
     }
 
-    public Boolean clear() {
-        return cacheClient.clear(group);
+    public void clear() {
+        cacheClient.clear(group);
     }
 
     public int size() {

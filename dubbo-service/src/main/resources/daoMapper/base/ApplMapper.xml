@@ -81,6 +81,14 @@
     <result column="LIC_CITY" jdbcType="VARCHAR" property="licCity" />
     <result column="LIMIT_CITY_IND" jdbcType="VARCHAR" property="limitCityInd" />
   </resultMap>
+  <resultMap id="ApplCacheMap" type="cn.tang.base.bean.Appl">
+    <id column="APPL_SEQ" jdbcType="DECIMAL" property="applSeq"/>
+    <result column="BCH_CDE" jdbcType="VARCHAR" property="bchCde"/>
+    <result column="COOPR_CDE" jdbcType="VARCHAR" property="cooprCde"/>
+    <result column="SALER_MOBILE" jdbcType="VARCHAR" property="salerMobile"/>
+    <result column="OPERATOR_CDE" jdbcType="VARCHAR" property="operatorCde"/>
+    <result column="OUT_STS" jdbcType="VARCHAR" property="outSts"/>
+  </resultMap>
   <sql id="Base_Column_List">
     APPL_SEQ, INSTU_CDE, APPL_CDE, APPLY_DT, BCH_CDE, FORM, CUST_ID, ID_TYP, ID_TYP_OTH, 
     ID_NO, CUST_NAME, MSS_IND, REJ_IND, LOAN_TYP, TYP_SEQ, TYP_VER, LOAN_PROM, PRO_PUR_AMT, 
@@ -871,4 +879,22 @@
     </set>
     where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
   </update>
+  <update id="updateOutstsByPrimaryKey">
+    UPDATE LC_APPL
+    <set>
+      <if test="outSts != null and outSts != '' ">
+        OUT_STS = #{outSts,jdbcType=VARCHAR},
+      </if>
+      <if test="accordWithMark != null and accordWithMark != ''">
+        ACCORD_WITH_MARK = #{accordWithMark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
+  </update>
+  <select id="selectApplCacheByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="ApplCacheMap"
+          resultType="cn.tang.base.redis.bean.ApplAuthCache">
+    select APPL_SEQ,BCH_CDE,COOPR_CDE,SALER_MOBILE,OPERATOR_CDE,OUT_STS
+    from LC_APPL
+    where APPL_SEQ = #{applSeq,jdbcType=DECIMAL}
+  </select>
 </mapper>

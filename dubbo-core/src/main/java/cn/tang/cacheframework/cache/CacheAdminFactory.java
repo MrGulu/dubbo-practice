@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author yanglingxiao
  * @description: cache工厂
  * @date 2018/7/10 9:36
  */
