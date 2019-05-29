@@ -53,6 +53,7 @@
             classpath:applicationContext.xml
             classpath:spring-dubbo-consumer.xml
             classpath:spring-redis.xml
+            classpath:spring-activeMq.xml
         </param-value>
     </context-param>
 

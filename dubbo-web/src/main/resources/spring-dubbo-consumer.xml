@@ -6,10 +6,13 @@
 		http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!--加载properties文件，之后就可以使用占位符的方式访问，在这里直接将dubbo和activeMq的都加载进来；
+    在activeMq使用的时候就不用引入了，但是这样需要本xml先于mq的那个xml加载（web.xml中）-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:/config/dubbo.properties</value>
+                <value>classpath:/config/activeMq.properties</value>
             </list>
         </property>
     </bean>

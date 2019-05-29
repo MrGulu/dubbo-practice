@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+        http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.10.2.xsd">
+    <!--apollo读参数，暂未改造-->
+    <!--<apollo:config/>-->
+
+    <!-- ActiveMQ 连接工厂  http://127.0.0.1:8161/-->
+    <amq:connectionFactory id="amqConnectionFactory"
+                           brokerURL="${activemq.brokerURL}"/>
+    <!--<amq:connectionFactory id="amqConnectionFactory"
+                           brokerURL="tcp://10.10.8.212:61616"/>-->
+
+    <!-- Spring Caching连接工厂 -->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
+        <property name="targetConnectionFactory" ref="amqConnectionFactory"/>
+        <!-- Session缓存数量 -->
+        <property name="sessionCacheSize" value="100"/>
+    </bean>
+
+    <!-- Spring JmsTemplate 的消息生产者 start-->
+    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+        <constructor-arg ref="connectionFactory"/>
+        <!-- 非pub/sub模型（发布/订阅），即队列模式 -->
+        <property name="pubSubDomain" value="false"/>
+    </bean>
+    <!--Spring JmsTemplate 的消息生产者 end-->
+
+    <!-- 消息消费者 start-->
+    <!-- 定义Queue监听器 -->
+    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory"
+                            acknowledge="auto" concurrency="5-10">
+        <!--测试队列消费者-->
+        <jms:listener destination="dubbo.web.test.queue" ref="testQueueConsumer"/>
+
+    </jms:listener-container>
+    <!-- 消息消费者 end -->
+
+
+</beans>
