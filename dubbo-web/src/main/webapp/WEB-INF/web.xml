@@ -155,6 +155,10 @@
             <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
         <!-- 取消其自动注册的异常解析器 -->
+        <!--关闭系统级别的 detectAllHandlerExceptionResolvers = false 不加载默认的那三个异常处理器
+            org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver
+            org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver
+            org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.DefaultHandlerExceptionResolver-->
         <init-param>
             <param-name>detectAllHandlerExceptionResolvers</param-name>
             <param-value>false</param-value>

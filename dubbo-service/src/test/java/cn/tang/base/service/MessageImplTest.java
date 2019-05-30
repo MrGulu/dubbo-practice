@@ -14,7 +14,7 @@ public class MessageImplTest {
 //    @Autowired
 //    @Qualifier("messageImpl")
     @Resource(name = "messageImpl")
-    private IMessage message;
+    private IMessageService message;
 //调用哪个service依然是不确定的。。。！！！
     @Test
     public void echo() {

@@ -5,19 +5,20 @@ import cn.tang.base.activemq.sender.QueueSender;
 import cn.tang.base.bean.Appl;
 import cn.tang.base.service.IApplService;
 import cn.tang.bean.JsonResponse;
+import cn.tang.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.jms.MapMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -30,6 +31,68 @@ public class TestController {
     @Autowired
     private QueueSender queueSender;
 
+    @RequestMapping("/testException")
+    @ResponseBody
+    public JsonResponse testException(HttpServletRequest request) throws Exception {
+//        throw new BusinessException(RspCodeEnum.ERR99994);
+        throw new Exception("exception");
+    }
+
+    @RequestMapping("/testException2")
+    public String testException2(HttpServletRequest request) throws BusinessException {
+//        throw new BusinessException(RspCodeEnum.ERR99994);
+        throw new BusinessException("exception");
+    }
+
+    @RequestMapping("/testException3")
+    public String testException3(HttpServletRequest request) throws Exception {
+//        throw new BusinessException(RspCodeEnum.ERR99994);
+        throw new Exception("exception");
+    }
+
+    /**
+     * 此方法虽然返回的是ModelAndView，但是由于new ModelAndView(new MappingJackson2JsonView())
+     * 所以就可以返回json数据了！！！
+     * 还有就是对于返回到前端的数据：
+     * 如果data直接返一个list，前端data.data之后就直接是取到了一个array对象，
+     * 然后就可以进行数组循环遍历取值了！
+     * var array = data.data;
+     * for (var i = 0;i<array.length;i++){
+     * alert(array[i]);
+     * }
+     * 如果data返的是一个map，map中放入一个list，前端data.data之后就是得到了一个map对象，直接继续.list就
+     * 可以取出放入map中的list了（map类型，直接.key就可以取出map中对应value值），然后就可以进行数组循环遍历取值了！
+     * var array = data.data.list;
+     * for (var i = 0;i<array.length;i++){
+     * alert(array[i]);
+     * }
+     *
+     * @param request
+     * @return
+     * @throws BusinessException
+     */
+    @RequestMapping("/testReturnJsonView")
+    @ResponseBody
+    public ModelAndView testReturnJsonView(HttpServletRequest request) throws BusinessException {
+        ModelAndView jsonView = new ModelAndView(new MappingJackson2JsonView());
+        jsonView.addObject("code", "0000");
+        jsonView.addObject("message", "success");
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ccc");
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("list", list);
+        jsonView.addObject("data", map);
+        return jsonView;
+    }
+
+    /**
+     * 测试dao整合
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/testDao")
     @ResponseBody
     public Map<String, Object> testDao(HttpServletRequest request) {

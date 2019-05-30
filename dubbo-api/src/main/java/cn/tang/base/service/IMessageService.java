@@ -1,6 +1,6 @@
 package cn.tang.base.service;
 
-public interface IMessage {
+public interface IMessageService {
     /**
      * 实现消息的回应处理
      * @param msg

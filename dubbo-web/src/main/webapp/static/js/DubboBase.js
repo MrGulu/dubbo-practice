@@ -24,5 +24,41 @@ $(document).ready(function () {
             }
         );
     });
+    $("#buttonB").click(function testException() {
+        $.ajax(
+            {
+                type: 'POST',
+                url: contextPath + '/test/testException',
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    $("#exception").val(data.message);
+                },
+                error: function (data) {
+                    $("#exception").val(data.message);
+                }
+            }
+        );
+    });
+    $("#buttonC").click(function testException() {
+        $.ajax(
+            {
+                type: 'POST',
+                url: contextPath + '/test/testReturnJsonView',
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    $("#jsonView").val(data.message);
+                    var array = data.data.list;
+                    for (var i = 0; i < array.length; i++) {
+                        alert(array[i]);
+                    }
+                },
+                error: function (data) {
+                    $("#jsonView").val(data.message);
+                }
+            }
+        );
+    });
     }
 );

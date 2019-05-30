@@ -22,11 +22,13 @@
 
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
@@ -45,6 +47,20 @@
                 <!-- json转换器 -->
                 <ref bean="mappingJacksonHttpMessageConverter"/>
             </list>
+        </property>
+    </bean>
+
+    <!-- 自定义HandlerMethodExceptionResolver -->
+    <!-- 为什么这个bean id必须是handlerExceptionResolver才能生效？
+    写globalExceptionResolver的时候无论怎么搞都不起作用！一下午！！！而且还不能省略id ！！！-->
+    <bean id="handlerExceptionResolver"
+          class="cn.tang.base.exceptionhandler.GlobalExceptionResolver">
+        <property name="defaultErrorView" value="/error/500"/>
+        <property name="messageConverters" ref="mappingJacksonHttpMessageConverter"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="cn.tang.exception.BusinessException">/error/500</prop>
+            </props>
         </property>
     </bean>
 

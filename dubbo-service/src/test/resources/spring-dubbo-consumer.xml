@@ -2,13 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://code.alibabatech.com/schema/dubbo
 		http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 		http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context
-	 	http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -23,9 +20,11 @@
     <!--暴露端口-->
     <!--<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>-->
     <!---->
-    <dubbo:reference interface="cn.tang.base.service.IMessage" id="messageImpl" timeout="${dubbo.provider.timeout}"
+    <dubbo:reference interface="cn.tang.base.service.IMessageService" id="messageImpl"
+                     timeout="${dubbo.provider.timeout}"
                      version="${dubbo.interface.version}"/>
-    <dubbo:reference interface="cn.tang.base.service.IMessage" id="messageImpl2" timeout="${dubbo.provider.timeout}"
+    <dubbo:reference interface="cn.tang.base.service.IMessageService" id="messageImpl2"
+                     timeout="${dubbo.provider.timeout}"
                      version="${dubbo.interface.version}"/>
 
 </beans>
