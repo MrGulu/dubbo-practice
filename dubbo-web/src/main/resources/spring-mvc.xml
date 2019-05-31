@@ -28,7 +28,18 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
+    <!--
+    <mvc:interceptors>
+        对所有请求都拦截，公共拦截器可以有多个
+        <bean name="baseInterceptor" class="cn.zifangsky.interceptor.BaseInterceptor" />
+        <mvc:interceptor>
+            对/test.html进行拦截
+            <mvc:mapping path="/test.html"/>
+            特定请求的拦截器只能有一个
+            <bean class="cn.zifangsky.interceptor.TestInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+        -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
