@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dubbo-web</artifactId>
+    <!--name指的就是在右侧maven中显示的名字-->
     <name>${project.artifactId}</name>
     <!--web模块需要指定打包成war包-->
     <packaging>war</packaging>
