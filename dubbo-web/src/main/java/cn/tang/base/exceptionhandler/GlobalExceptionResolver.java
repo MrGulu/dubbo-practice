@@ -63,27 +63,35 @@ public class GlobalExceptionResolver extends ExceptionHandlerExceptionResolver {
          * 再判断是否是自定义异常BusinessException进行返回code，message和data
          */
         ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(method, ResponseBody.class);
+//        在判断Ajax时，也可以使用下面两种方法判断true或者!=null
+//        boolean hasMethodAnnotation = handlerMethod.hasMethodAnnotation(ResponseBody.class);
+//        ResponseBody methodAnnotation = handlerMethod.getMethodAnnotation(ResponseBody.class);
         try {
             if (("XMLHttpRequest").equals(request.getHeader("X-Requested-With")) || (responseBodyAnn != null)) {
+                log.info("全局异常处理：Ajax请求或@ResponseBody……");
                 ModelAndView jsonView = new ModelAndView(new MappingJackson2JsonView());
                 if (exception instanceof BusinessException) {
+                    log.error("全局异常Ajax或@ResponseBody请求自定义异常！", exception);
                     BusinessException businessException = (BusinessException) exception;
                     jsonView.addObject("code", businessException.getErrorCode());
                     jsonView.addObject("message", businessException.getMessage());
                     jsonView.addObject("data", new HashMap<>());
+                    log.error("全局异常处理：Ajax请求或@ResponseBody自定义异常params：code：{}，message：{}", businessException.getErrorCode(), businessException.getMessage());
                 } else {
-                    log.error("异常处理捕获非BusinessException:", exception);
+                    log.error("全局异常Ajax请求或@ResponseBody非自定义异常！", exception);
+                    String message = StringUtils.isEmpty(exception.getMessage()) ? exception.getMessage() : "系统异常！";
                     jsonView.addObject("code", "99999");
-                    jsonView.addObject("message", "系统异常！");
+                    jsonView.addObject("message", message);
                     jsonView.addObject("data", new HashMap<>());
+                    log.error("全局异常处理：Ajax请求或@ResponseBody非自定义异常params：code：{}，message：{}", "99999", message);
                 }
                 response.setStatus(200);
                 return jsonView;
             }
         } catch (Exception e) {
+            log.error("全局异常Ajax请求或@ResponseBodycatch捕获:" + Arrays.toString(e.getStackTrace()));
             response.setStatus(200);
             ModelAndView jsonView = new ModelAndView(new MappingJackson2JsonView());
-            log.error("异常处理捕获失败:" + Arrays.toString(e.getStackTrace()));
             jsonView.addObject("code", "99998");
             jsonView.addObject("message", "系统异常");
             jsonView.addObject("data", new HashMap<Object, Object>());
@@ -108,7 +116,8 @@ public class GlobalExceptionResolver extends ExceptionHandlerExceptionResolver {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    log.error("系统捕获" + entry.getKey() + ":" + errorMsg);
+                    //对于两个参数以上的日志打印，使用Object[]数组的方式
+                    log.error("全局异常处理：跳转自定义异常映射视图:{},异常：{},errorMsg:{}", new Object[]{entry.getValue(), entry.getKey(), errorMsg});
                     //跳转到配置的异常映射路径，并且携带参数param
                     returnValue = new ModelAndView(entry.getValue().toString(), param);
                     break;
@@ -129,6 +138,7 @@ public class GlobalExceptionResolver extends ExceptionHandlerExceptionResolver {
                 e.printStackTrace();
             }
             response.reset();
+            log.info("全局异常处理：跳转默认视图:{},param:{}", this.defaultErrorView, "系统异常！");
             returnValue = new ModelAndView(this.defaultErrorView, param);
         }
         return returnValue;

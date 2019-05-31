@@ -5,6 +5,7 @@ import cn.tang.base.activemq.sender.QueueSender;
 import cn.tang.base.bean.Appl;
 import cn.tang.base.service.IApplService;
 import cn.tang.bean.JsonResponse;
+import cn.tang.enumbean.RspCodeEnum;
 import cn.tang.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQMapMessage;
@@ -31,22 +32,42 @@ public class TestController {
     @Autowired
     private QueueSender queueSender;
 
+    /**
+     * 测试全局异常Ajax请求和使用@ResponseBody注解的情况，返回code，message，data
+     * 1.抛出自定义异常BusinessException
+     * 2.抛出其他异常
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/testException")
     @ResponseBody
     public JsonResponse testException(HttpServletRequest request) throws Exception {
 //        throw new BusinessException(RspCodeEnum.ERR99994);
-        throw new Exception("exception");
+        throw new Exception("发生Exception啦！");
     }
 
+    /**
+     * 测试全局异常非Ajax请求，请求跳转视图，在跳转页面时发生自定义异常BusinessException时的情况，
+     * 跳转到自定义异常 映射 的页面。
+     * @param request
+     * @return
+     * @throws BusinessException
+     */
     @RequestMapping("/testException2")
-    public String testException2(HttpServletRequest request) throws BusinessException {
-//        throw new BusinessException(RspCodeEnum.ERR99994);
-        throw new BusinessException("exception");
+    public String testException2(HttpServletRequest request) throws Exception {
+        throw new BusinessException(RspCodeEnum.ERR99994);
     }
 
+    /**
+     * 测试全局异常在非Ajax请求，请求跳转视图发生非自定义异常时，跳转到 默认 错误页面
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/testException3")
     public String testException3(HttpServletRequest request) throws Exception {
-//        throw new BusinessException(RspCodeEnum.ERR99994);
         throw new Exception("exception");
     }
 
