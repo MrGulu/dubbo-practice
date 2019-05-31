@@ -29,6 +29,19 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean class="cn.tang.base.interceptor.XSSInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean class="cn.tang.base.interceptor.InvalidChracterInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
@@ -53,6 +66,7 @@
     <!-- 自定义HandlerMethodExceptionResolver -->
     <!-- 为什么这个bean id必须是handlerExceptionResolver才能生效？
     写globalExceptionResolver的时候无论怎么搞都不起作用！一下午！！！而且还不能省略id ！！！-->
+    <!--已解决：springmvc从容器中取自定义异常处理器时是通过指定的id去取的，这个id默认是handlerExceptionResolver-->
     <bean id="handlerExceptionResolver"
           class="cn.tang.base.exceptionhandler.GlobalExceptionResolver">
         <property name="defaultErrorView" value="/error/500"/>

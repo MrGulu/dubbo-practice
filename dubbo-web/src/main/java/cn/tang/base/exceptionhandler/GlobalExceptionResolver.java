@@ -79,7 +79,7 @@ public class GlobalExceptionResolver extends ExceptionHandlerExceptionResolver {
                     log.error("全局异常处理：Ajax请求或@ResponseBody自定义异常params：code：{}，message：{}", businessException.getErrorCode(), businessException.getMessage());
                 } else {
                     log.error("全局异常Ajax请求或@ResponseBody非自定义异常！", exception);
-                    String message = StringUtils.isEmpty(exception.getMessage()) ? exception.getMessage() : "系统异常！";
+                    String message = StringUtils.isEmpty(exception.getMessage()) ? "系统异常！" : exception.getMessage();
                     jsonView.addObject("code", "99999");
                     jsonView.addObject("message", message);
                     jsonView.addObject("data", new HashMap<>());

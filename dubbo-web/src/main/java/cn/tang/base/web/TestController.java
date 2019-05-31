@@ -32,6 +32,15 @@ public class TestController {
     @Autowired
     private QueueSender queueSender;
 
+    @RequestMapping("/testInterceptor")
+    @ResponseBody
+    public JsonResponse testInterceptor(HttpServletRequest request) {
+        String name = request.getParameter("namge");
+        log.info("拦截器接收参数：name--{}", name);
+        return JsonResponse.success("OK");
+    }
+
+
     /**
      * 测试全局异常Ajax请求和使用@ResponseBody注解的情况，返回code，message，data
      * 1.抛出自定义异常BusinessException

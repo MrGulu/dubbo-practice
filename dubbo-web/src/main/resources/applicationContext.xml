@@ -18,4 +18,6 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
+    <bean id="springBeanUtil" class="cn.tang.utils.SpringBeanUtil"/>
+
 </beans>
