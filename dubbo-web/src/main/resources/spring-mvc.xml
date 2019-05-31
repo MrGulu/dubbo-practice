@@ -42,6 +42,10 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <!-- spring3.0.4以后版本提供了mvc:resources -->
+    <!-- 对静态资源文件的访问 -->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">

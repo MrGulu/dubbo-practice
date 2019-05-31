@@ -18,7 +18,12 @@ import java.util.regex.Pattern;
 public class InvalidChracterInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(InvalidChracterInterceptor.class);
-
+    /**
+     * 在下面Pattern.compile()方法第二个参数中，如果在启用了UNICODE_CASE标志的基础上，
+     * 如果你还启用了CASE_INSENSITIVE标志，那么它会对Unicode字符进行大小写不明感的匹配。
+     * 也就是Pattern.CASE_INSENSITIVE & Pattern.UNICODE_CASE
+     * 默认情况下，大小写不敏感的匹配只适用于US-ASCII字符集
+     */
     private static Pattern[] patterns = {
             Pattern.compile("undefined", Pattern.CASE_INSENSITIVE & Pattern.UNICODE_CASE),
             Pattern.compile("null", Pattern.CASE_INSENSITIVE & Pattern.UNICODE_CASE)
