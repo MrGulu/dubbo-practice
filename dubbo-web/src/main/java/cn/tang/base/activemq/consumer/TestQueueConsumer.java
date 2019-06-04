@@ -11,6 +11,11 @@ import javax.jms.MessageListener;
  * @author tangwenlong
  * @description: 队列测试消费者
  */
+
+/**
+ * 在使用实现MessageListener接口，重写onMessage(Message message)方法的形式监听队列消息时，
+ * 在此类中就已经不能再写其他的普通方法，然后在配置文件中指定ref 和 method，不会起作用，不会进入队列！
+ */
 @Slf4j
 @Component("testQueueConsumer")
 public class TestQueueConsumer implements MessageListener {

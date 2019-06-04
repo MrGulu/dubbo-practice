@@ -7,7 +7,20 @@
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!--加载properties文件，之后就可以使用占位符的方式访问，在这里直接将dubbo和activeMq的都加载进来；
-    在activeMq使用的时候就不用引入了，但是这样需要本xml先于mq的那个xml加载（web.xml中）-->
+    在activeMq使用的时候就不用引入了，但是这样需要本xml先于mq的那个xml加载（web.xml中）
+    最后决定还是将读取配置文件分开放置！
+
+    但是最后发现不能分开xml文件读取配置！原因如下：
+    Spring容器采用反射扫描的发现机制，在探测到Spring容器中有一个
+    org.springframework.beans.factory.config.PropertyPlaceholderConfigurer的Bean
+    就会停止对剩余PropertyPlaceholderConfigurer的扫描
+    （Spring 3.1已经使用PropertySourcesPlaceholderConfigurer替代PropertyPlaceholderConfigurer了）。
+    而<context:property-placeholder/>这个基于命名空间的配置，
+    其实内部就是创建一个PropertyPlaceholderConfigurer Bean而已。
+    换句话说，即Spring容器仅允许最多定义一个PropertyPlaceholderConfigurer(或<context:property-placeholder/>)，
+    其余的会被Spring忽略掉！！！-->
+
+    <!--加载属性配置文件-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -16,6 +29,9 @@
             </list>
         </property>
     </bean>
+    <!--或者如下-->
+    <!--<context:property-placeholder location="classpath:/config/*.properties"/>-->
+
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="${dubbo.application.name}"/>
     <!-- 使用zookeeper广播注册中心暴露服务地址，消费者和提供者要连接同一个注册中心，且端口必须一致！ -->
