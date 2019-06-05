@@ -14,7 +14,7 @@
 
     <!-- ActiveMQ 连接工厂  http://127.0.0.1:8161/-->
     <amq:connectionFactory id="amqConnectionFactory"
-                           brokerURL="${activemq.brokerURL}" objectMessageSerializationDefered="false"/>
+                           brokerURL="${activemq.brokerURL}"/>
     <!--<amq:connectionFactory id="amqConnectionFactory"
                            brokerURL="tcp://10.10.8.212:61616"/>-->
 
