@@ -1,6 +1,5 @@
 package cn.tang.base.web;
 
-import cn.tang.base.activemq.common.MqConstant;
 import cn.tang.base.activemq.sender.QueueSender;
 import cn.tang.base.bean.Appl;
 import cn.tang.base.service.IApplService;
@@ -8,7 +7,6 @@ import cn.tang.bean.JsonResponse;
 import cn.tang.enumbean.RspCodeEnum;
 import cn.tang.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.jms.MapMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
@@ -148,29 +145,6 @@ public class TestController {
         }
         log.info("return params:{}",rtnMap.toString());
         return rtnMap;
-    }
-
-    /**
-     * 一开始没加@ResponseBody注解，前端一直报404
-     *
-     * @param request
-     * @return
-     */
-    @RequestMapping("/testMq")
-    @ResponseBody
-    public JsonResponse testMq(HttpServletRequest request) {
-        String name = Objects.requireNonNull(request.getParameter("name"), "name is null");
-        String age = Objects.requireNonNull(request.getParameter("age"), "age is null");
-        MapMessage mapMessage = new ActiveMQMapMessage();
-        try {
-            mapMessage.setString("name", name);
-            mapMessage.setString("age", age);
-            queueSender.sendMapMessage(MqConstant.TEST_QUEUE, mapMessage);
-//            queueSender.sendMapMessageWait(MqConstant.TEST_QUEUE,mapMessage,MqConstant.TEST_QUEUE_DELAY);
-        } catch (Exception e) {
-            log.error("队列发送时异常！", e);
-        }
-        return JsonResponse.success("发送成功！一分钟后处理！");
     }
 
 }

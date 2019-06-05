@@ -14,7 +14,7 @@
 
     <!-- ActiveMQ 连接工厂  http://127.0.0.1:8161/-->
     <amq:connectionFactory id="amqConnectionFactory"
-                           brokerURL="${activemq.brokerURL}"/>
+                           brokerURL="${activemq.brokerURL}" objectMessageSerializationDefered="false"/>
     <!--<amq:connectionFactory id="amqConnectionFactory"
                            brokerURL="tcp://10.10.8.212:61616"/>-->
 
@@ -40,7 +40,24 @@
     <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory"
                             acknowledge="auto" concurrency="5-10">
         <!--测试队列消费者-->
+        <!--使用实现实现MessageListener接口，重写onMessage(Message message)方法的形式监听队列消息时，
+          在此类中就已经不能再写其他的普通方法，然后在配置文件中指定ref 和 method，不会起作用，不会进入队列！-->
         <jms:listener destination="dubbo.web.test.queue" ref="testQueueConsumer"/>
+        <!--使用实现mq消息监听的方式是在配置文件中指定处理具体队列的类ref 和方法 method。
+          此种方式可以在一个类中实现监听多个队列！不会像实现MessageListener接口那样，一个类只能监听一个队列的消息！-->
+        <!--默认消费者，用于测试-->
+        <jms:listener destination="dubbo.web.test.method.default.queue" ref="testMethodQueueConsumer"
+                      method="testMethodMqDefault"/>
+        <!--发送ActiveMapMessage类型参数消费者，用于测试。此方法只能放入java primitive数据类型。-->
+        <jms:listener destination="dubbo.web.test.method.mapmsg.queue" ref="testMethodQueueConsumer"
+                      method="testMethodMqMapMsg"/>
+        <!--发送Object类型参数消费者，用于测试。此方法可以发送复杂数据类型。-->
+        <jms:listener destination="dubbo.web.test.method.objmsg.queue" ref="testMethodQueueConsumer"
+                      method="testMethodObjMsgMq"/>
+        <jms:listener destination="dubbo.web.test.method.objmapmsg.queue" ref="testMethodQueueConsumer"
+                      method="testMethodObjMapMsgMq"/>
+        <jms:listener destination="dubbo.web.test.method.objmaplistmsg.queue" ref="testMethodQueueConsumer"
+                      method="testMethodObjMapListMsgMq"/>
 
     </jms:listener-container>
     <!-- 消息消费者 end -->
