@@ -39,7 +39,7 @@ public class TestMqController {
         try {
             mapMessage.setString("name", name);
             mapMessage.setString("age", age);
-            queueSender.sendMapMessageWait(MqConstant.TEST_QUEUE, mapMessage, MqConstant.TEST_QUEUE_DELAY);
+            queueSender.sendMapMessageWait(MqConstant.TEST_QUEUE, mapMessage, MqConstant.TEST_QUEUE_DELAY_ONE_MINUTE);
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
             return JsonResponse.fail("9999", "发送异常！");
@@ -52,18 +52,6 @@ public class TestMqController {
     public JsonResponse testMethodDefaultMq(HttpServletRequest request) {
         try {
             queueSender.sendString(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "Hello testMethodDefaultMq!");
-        } catch (Exception e) {
-            log.error("队列发送时异常！", e);
-            return JsonResponse.fail("9999", "发送异常！");
-        }
-        return JsonResponse.success("发送成功！");
-    }
-
-    @RequestMapping("/testMethodMq")
-    @ResponseBody
-    public JsonResponse testMethodMq(HttpServletRequest request) {
-        try {
-            queueSender.sendString(MqConstant.TEST_METHOD_QUEUE, "Hello testMethodMq!");
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
             return JsonResponse.fail("9999", "发送异常！");
@@ -121,7 +109,7 @@ public class TestMqController {
             map.put("name", "dsf");
             map.put("age", 88);
             map.put("appl", appl);
-            queueSender.sendObjMessage(MqConstant.TEST_METHOD_OBJMAPMSG_QUEUE, map);
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map);
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
             return JsonResponse.fail("9999", "发送异常！");
@@ -142,7 +130,7 @@ public class TestMqController {
             map.put("name", "dsf");
             map.put("age", 88);
             map.put("list", list);
-            queueSender.sendObjMessage(MqConstant.TEST_METHOD_OBJMAPLISTMSG_QUEUE, map);
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map);
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
             return JsonResponse.fail("9999", "发送异常！");

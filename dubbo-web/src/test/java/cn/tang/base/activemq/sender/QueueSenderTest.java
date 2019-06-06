@@ -1,12 +1,22 @@
 package cn.tang.base.activemq.sender;
 
 import cn.tang.base.activemq.common.MqConstant;
+import cn.tang.base.bean.Appl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.jms.ObjectMessage;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 书写测试类遇到的几点错误：
@@ -63,18 +73,114 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:spring-test.xml",
         "classpath:spring-activeMq.xml",
         "classpath:spring-redis.xml"})
+@SuppressWarnings("all")
 public class QueueSenderTest {
 
     @Autowired
     private QueueSender queueSender;
 
+    /**
+     * 测试原来方式发送各种类型参数
+     * jmsTemplate.send（……）
+     */
     @Test
     public void test() {
         try {
-            queueSender.sendString(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "Hello World!");
+            Appl appl = new Appl();
+            appl.setApplSeq(new BigDecimal("6733456"));
+            appl.setOutSts("14");
+            List<Appl> list = new ArrayList<>();
+            list.add(appl);
+            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map2 = new HashMap<>();
+            map.put("name", "aaa");
+            map.put("age", 88);
+            map2.put("name", "bbb");
+            map2.put("age", 88);
+            map2.put("list", list);
+            //发送string数据
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "hahaha");
+            //发送bean数据
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_OBJMSG_QUEUE, appl);
+            //发送简单Map数据（value值只包含java primitive类型）
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map);
+            //发送复杂Map数据（value值可以包含对象，List等。）
+            queueSender.sendObjMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map2);
+//            queueSender.sendObjMessageWait(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map,10000L);
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
-            throw e;
         }
     }
+
+    /**
+     * 测试新方法发送各种类型参数
+     * jmsTemplate.convertAndSend（……）
+     */
+    @Test
+    public void test1() {
+        try {
+            Appl appl = new Appl();
+            appl.setApplSeq(new BigDecimal("6733456"));
+            appl.setOutSts("14");
+            List<Appl> list = new ArrayList<>();
+            list.add(appl);
+            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map2 = new HashMap<>();
+            map.put("name", "aaa");
+            map.put("age", 88);
+            map2.put("name", "bbb");
+            map2.put("age", 88);
+            map2.put("list", list);
+            ObjectMessage objectMessage = new ActiveMQObjectMessage();
+            objectMessage.setObject((Serializable) map2);
+            //发送string数据
+            queueSender.sendObjectMessage(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "hahaha");
+            //发送bean数据
+            queueSender.sendObjectMessage(MqConstant.TEST_METHOD_OBJMSG_QUEUE, appl);
+            //发送简单Map数据（value值只包含java primitive类型）
+            queueSender.sendObjectMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map);
+            //发送复杂Map数据（value值可以包含对象，List等。这里必须使用ObjectMessage组装复杂类型的Map对象！）
+            queueSender.sendObjectMessage(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, objectMessage);
+//            queueSender.sendObjectMessageSchedulerDelay(MqConstant.TEST_METHOD_DEFAULT_QUEUE,"delay*****************",5000L);
+//            queueSender.sendObjectMessageSchedulerCron(MqConstant.TEST_METHOD_DEFAULT_QUEUE,"delay cron*****************","45 11 * 6 4");
+//            queueSender.sendObjectMessageSchedulerDelay(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map, 10000L);
+//            queueSender.sendObjectMessageSchedulerCron(MqConstant.TEST_METHOD_MAPMSG_COMPLEX_QUEUE, map, "45 11 * 6 4");
+        } catch (Exception e) {
+            log.error("队列发送时异常！", e);
+        }
+    }
+
+    /**
+     * 测试使用注解配置消费者
+     */
+    @Test
+    public void testAnnoMq() {
+        try {
+            Appl appl = new Appl();
+            appl.setApplSeq(new BigDecimal("6733456"));
+            appl.setOutSts("14");
+            List<Appl> list = new ArrayList<>();
+            list.add(appl);
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "dsf");
+            map.put("age", 88);
+            map.put("list", list);
+            queueSender.sendObjMessage(MqConstant.ANNOTATION_QUEUE, map);
+        } catch (Exception e) {
+            log.error("队列发送时异常！", e);
+        }
+    }
+
+    /**
+     * 测试使用jmsMessagingTemplate.convertAndSend发送消息
+     */
+    @Test
+    public void testAnnoMqJmsMessagingTemplate() {
+        try {
+            queueSender.sendStringJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "***jmsMessagingTemplate***");
+        } catch (Exception e) {
+            log.error("队列发送时异常！", e);
+        }
+    }
+
 }

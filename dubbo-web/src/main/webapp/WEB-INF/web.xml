@@ -47,6 +47,9 @@
     (org.springframework.web.context.ContextLoader).
     log4j:WARN Please initialize the log4j system properly.
     在报这个问题时，把下面的配置放在log4j之后。-->
+    <!--ContextLoaderListener是一个ServletContextListener, 它在你的web应用启动的时候初始化。缺省情况下，
+     它会在WEB-INF/applicationContext.xml文件找Spring的配置。
+     你可以通过定义一个<context-param>元素名字为”contextConfigLocation”来改变Spring配置文件的位置。示例如下：-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>

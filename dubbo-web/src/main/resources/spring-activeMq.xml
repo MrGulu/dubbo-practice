@@ -6,11 +6,23 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/jms
-        http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+        http://www.springframework.org/schema/jms/spring-jms.xsd
         http://activemq.apache.org/schema/core
         http://activemq.apache.org/schema/core/activemq-core-5.10.2.xsd">
     <!--apollo读参数，暂未改造-->
     <!--<apollo:config/>-->
+
+    <!--Mq 注解使用 start-->
+    <!--如果想要使用注解的方式实现Mq队列，首先开启jms注解，否则发送队列不会报错，但也不会被@JmsListener注解
+    修饰的消费者将消息消费！
+    然后注册一个jmsListenerContainerFactory，指定连接工厂！-->
+    <!--启用jms注解-->
+    <jms:annotation-driven/>
+    <!--jmsListenerContainerFactory-->
+    <bean id="jmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+    <!--Mq 注解使用 end-->
 
     <!-- ActiveMQ 连接工厂  http://127.0.0.1:8161/-->
     <amq:connectionFactory id="amqConnectionFactory"
@@ -27,11 +39,18 @@
     </bean>
 
     <!-- Spring JmsTemplate 的消息生产者 start-->
+    <!--这里使用JmsTemplate发送消息，调用的时候直接jmsTemplate.send(final String destinationName, final MessageCreator messageCreator)
+    就可以；但如果使用JmsMessagingTemplate类发送消息的话，使用的是jmsMessagingTemplate.convertAndSend(String destinationName, Object payload)方法;
+    JmsTemplate是1.1版本有的，而JmsMessagingTemplate是从4.1版本有的，对JmsTemplate进行了封装，要更好一些！但本质用的还是JmsTemplate。-->
     <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
         <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
         <constructor-arg ref="connectionFactory"/>
         <!-- 非pub/sub模型（发布/订阅），即队列模式 -->
         <property name="pubSubDomain" value="false"/>
+    </bean>
+    <!--jmsMessagingTemplate发送消息-->
+    <bean id="jmsMessagingTemplate" class="org.springframework.jms.core.JmsMessagingTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
     </bean>
     <!--Spring JmsTemplate 的消息生产者 end-->
 
@@ -54,10 +73,8 @@
         <!--发送Object类型参数消费者，用于测试。此方法可以发送复杂数据类型。-->
         <jms:listener destination="dubbo.web.test.method.objmsg.queue" ref="testMethodQueueConsumer"
                       method="testMethodObjMsgMq"/>
-        <jms:listener destination="dubbo.web.test.method.objmapmsg.queue" ref="testMethodQueueConsumer"
+        <jms:listener destination="dubbo.web.test.method.mapmsg.complex.queue" ref="testMethodQueueConsumer"
                       method="testMethodObjMapMsgMq"/>
-        <jms:listener destination="dubbo.web.test.method.objmaplistmsg.queue" ref="testMethodQueueConsumer"
-                      method="testMethodObjMapListMsgMq"/>
 
     </jms:listener-container>
     <!-- 消息消费者 end -->

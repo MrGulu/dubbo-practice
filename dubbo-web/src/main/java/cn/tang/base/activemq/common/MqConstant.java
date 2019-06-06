@@ -5,20 +5,28 @@ public class MqConstant {
      * 测试队列
      */
     public static final String TEST_QUEUE = "dubbo.web.test.queue";
-
+    /**
+     * 默认字符串队列
+     */
     public static final String TEST_METHOD_DEFAULT_QUEUE = "dubbo.web.test.method.default.queue";
-
-    public static final String TEST_METHOD_QUEUE = "dubbo.web.test.method.queue";
-
-    public static final String TEST_METHOD_MAPMSG_QUEUE = "dubbo.web.test.method.mapmsg.queue";
-
+    /**
+     * 发送对象bean队列
+     */
     public static final String TEST_METHOD_OBJMSG_QUEUE = "dubbo.web.test.method.objmsg.queue";
-
-    public static final String TEST_METHOD_OBJMAPMSG_QUEUE = "dubbo.web.test.method.objmapmsg.queue";
-
-    public static final String TEST_METHOD_OBJMAPLISTMSG_QUEUE = "dubbo.web.test.method.objmaplistmsg.queue";
-
+    /**
+     * 发送简单Map队列
+     */
+    public static final String TEST_METHOD_MAPMSG_QUEUE = "dubbo.web.test.method.mapmsg.queue";
+    /**
+     * 发送复杂Map队列
+     */
+    public static final String TEST_METHOD_MAPMSG_COMPLEX_QUEUE = "dubbo.web.test.method.mapmsg.complex.queue";
+    /**
+     * 发送注解处理队列
+     */
     public static final String ANNOTATION_QUEUE = "annotation.queue";
-
-    public static final Long TEST_QUEUE_DELAY = 60000L;
+    /**
+     * 发送队列延迟一分钟
+     */
+    public static final Long TEST_QUEUE_DELAY_ONE_MINUTE = 60000L;
 }
