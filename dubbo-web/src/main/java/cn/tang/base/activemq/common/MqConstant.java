@@ -29,4 +29,10 @@ public class MqConstant {
      * 发送队列延迟一分钟
      */
     public static final Long TEST_QUEUE_DELAY_ONE_MINUTE = 60000L;
+
+
+    public static final String TEST_TOPIC = "dubbo.web.test.msg.topic";
+
+    public static final String ANNOTATION_TOPIC = "annotation.topic";
+
 }

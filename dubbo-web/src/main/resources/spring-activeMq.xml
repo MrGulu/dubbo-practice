@@ -48,6 +48,14 @@
         <!-- 非pub/sub模型（发布/订阅），即队列模式 -->
         <property name="pubSubDomain" value="false"/>
     </bean>
+
+    <bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+        <constructor-arg ref="connectionFactory"/>
+        <!-- pub/sub模型（发布/订阅），即Topic模式 -->
+        <property name="pubSubDomain" value="true"/>
+    </bean>
+
     <!--jmsMessagingTemplate发送消息-->
     <bean id="jmsMessagingTemplate" class="org.springframework.jms.core.JmsMessagingTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>
@@ -75,6 +83,16 @@
                       method="testMethodObjMsgMq"/>
         <jms:listener destination="dubbo.web.test.method.mapmsg.complex.queue" ref="testMethodQueueConsumer"
                       method="testMethodObjMapMsgMq"/>
+
+    </jms:listener-container>
+
+    <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory"
+                            acknowledge="auto">
+        <jms:listener destination="dubbo.web.test.msg.topic" ref="testTopicConsumer"/>
+        <jms:listener destination="dubbo.web.test.msg.topic" ref="testTopicConsumer2"/>
+        <jms:listener destination="dubbo.web.test.msg.topic" ref="testTopicConsumer3"/>
+
+        <jms:listener destination="annotation.topic" ref="testMethodTopicConsumer"/>
 
     </jms:listener-container>
     <!-- 消息消费者 end -->

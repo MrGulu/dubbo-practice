@@ -94,6 +94,8 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--浏览器 form 表单只支持 GET与 POST 请求，而DELETE、PUT 等 method 并不支持，Spring3.0 添加了一个过滤器，
+    可以将这些请求转换为标准的 http 方法，使得支持 GET、POST、PUT 与DELETE 请求-->
     <filter>
         <filter-name>hiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>

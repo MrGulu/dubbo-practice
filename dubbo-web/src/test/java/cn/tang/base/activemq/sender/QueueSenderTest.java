@@ -79,6 +79,9 @@ public class QueueSenderTest {
     @Autowired
     private QueueSender queueSender;
 
+    @Autowired
+    private TopicSender topicSender;
+
     /**
      * 测试原来方式发送各种类型参数
      * jmsTemplate.send（……）
@@ -180,6 +183,25 @@ public class QueueSenderTest {
             queueSender.sendStringJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "***jmsMessagingTemplate***");
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
+        }
+    }
+
+
+    @Test
+    public void testTopic() {
+        try {
+            topicSender.sendString(MqConstant.TEST_TOPIC, "hello world!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testTopicAnno() {
+        try {
+            topicSender.sendString(MqConstant.ANNOTATION_TOPIC, "annotation topic");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
