@@ -42,7 +42,9 @@
         -->
     <mvc:interceptors>
         <mvc:interceptor>
+            <!--拦截所有请求-->
             <mvc:mapping path="/**"/>
+            <!--不拦截static静态资源的请求-->
             <mvc:exclude-mapping path="/static/**"/>
             <bean class="cn.tang.base.interceptor.XSSInterceptor"/>
         </mvc:interceptor>

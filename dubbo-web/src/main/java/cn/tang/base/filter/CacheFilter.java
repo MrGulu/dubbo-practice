@@ -25,7 +25,7 @@ public class CacheFilter extends OncePerRequestFilter {
     protected void doFilterInternal(final HttpServletRequest request,
                                     HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-
+        System.out.println("CacheFilter doFilterInternal**********");
         String curUrl = request.getRequestURL().toString();
 
         if (curUrl.indexOf("?") > 0) {
@@ -55,5 +55,8 @@ public class CacheFilter extends OncePerRequestFilter {
         response.setDateHeader("Expires", 0);
         chain.doFilter(request, response);
 
+        System.out.println("CacheFilter chain.doFilter *******");
     }
+
+
 }

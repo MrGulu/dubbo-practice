@@ -2,6 +2,7 @@ package cn.tang.base.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ public class InvalidChracterInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("InvalidChracterInterceptor preHandle************");
         logger.debug("无效字符拦截-处理http请求-开始");
         Map parameterMap = request.getParameterMap();
         Iterator keyIt = parameterMap.keySet().iterator();
@@ -60,5 +62,15 @@ public class InvalidChracterInterceptor extends HandlerInterceptorAdapter {
             }
         }
         return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("InvalidChracterInterceptor postHandle************");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("InvalidChracterInterceptor afterCompletion***************");
     }
 }

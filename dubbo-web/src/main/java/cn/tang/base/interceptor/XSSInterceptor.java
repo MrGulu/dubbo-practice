@@ -7,6 +7,7 @@ package cn.tang.base.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public class XSSInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        System.out.println("XSSInterceptor preHandle***************");
         logger.debug("xss攻击防御-处理http请求-开始");
         Map parameterMap = request.getParameterMap();
         Iterator keyIt = parameterMap.keySet().iterator();
@@ -69,5 +71,20 @@ public class XSSInterceptor extends HandlerInterceptorAdapter {
             }
         }
         return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("XSSInterceptor postHandle*************");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("XSSInterceptor afterCompletion***************");
+    }
+
+    @Override
+    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        super.afterConcurrentHandlingStarted(request, response, handler);
     }
 }

@@ -1,7 +1,6 @@
 package cn.tang.base.web;
 
 import cn.tang.base.activemq.sender.QueueSender;
-import cn.tang.base.bean.Appl;
 import cn.tang.base.service.IApplService;
 import cn.tang.bean.JsonResponse;
 import cn.tang.enumbean.RspCodeEnum;
@@ -15,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -123,28 +124,29 @@ public class TestController {
     @RequestMapping("/testDao")
     @ResponseBody
     public Map<String, Object> testDao(HttpServletRequest request) {
-        String msg = null;
-        String applSeq = null;
-        Map<String,Object> rtnMap = new HashMap<>(8);
-        try {
-            applSeq = Objects.requireNonNull(request.getParameter("applSeq"),
-                    "require param is null!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            msg = e.getMessage();
-        }
-        if (Objects.isNull(msg)) {
-            Appl appl = applService.selectByApplSeq(new BigDecimal(applSeq));
-            rtnMap.put("code", "0");
-            rtnMap.put("message", "success");
-            rtnMap.put("data", appl);
-        } else {
-            rtnMap.put("code", "-1");
-            rtnMap.put("message", msg);
-            rtnMap.put("data", new HashMap<>());
-        }
-        log.info("return params:{}",rtnMap.toString());
-        return rtnMap;
+        throw new BusinessException("exception");
+//        String msg = null;
+//        String applSeq = null;
+//        Map<String,Object> rtnMap = new HashMap<>(8);
+//        try {
+//            applSeq = Objects.requireNonNull(request.getParameter("applSeq"),
+//                    "require param is null!");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            msg = e.getMessage();
+//        }
+//        if (Objects.isNull(msg)) {
+//            Appl appl = applService.selectByApplSeq(new BigDecimal(applSeq));
+//            rtnMap.put("code", "0");
+//            rtnMap.put("message", "success");
+//            rtnMap.put("data", appl);
+//        } else {
+//            rtnMap.put("code", "-1");
+//            rtnMap.put("message", msg);
+//            rtnMap.put("data", new HashMap<>());
+//        }
+//        log.info("return params:{}",rtnMap.toString());
+//        return rtnMap;
     }
 
 }
