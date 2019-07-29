@@ -30,7 +30,7 @@ public class TestMethodQueueConsumer {
      *
      * @param message
      */
-    public void testMethodMqDefault(String message) {
+    public void testMethodMqDefault(Object message) {
         log.info("default++++++++++++++++++++++++++++++++");
         log.info("*************{}**************", message);
     }

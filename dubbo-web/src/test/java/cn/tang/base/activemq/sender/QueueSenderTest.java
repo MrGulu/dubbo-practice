@@ -175,15 +175,37 @@ public class QueueSenderTest {
     }
 
     /**
-     * 测试使用jmsMessagingTemplate.convertAndSend发送消息
+     * 测试使用jmsMessagingTemplate.convertAndSend发送primitive消息
      */
     @Test
-    public void testAnnoMqJmsMessagingTemplate() {
+    public void testJmsMessagingTemplatePrimitive() {
         try {
-            queueSender.sendStringJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "***jmsMessagingTemplate***");
+            queueSender.sendObjJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, 1);
+            queueSender.sendObjJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, true);
+            queueSender.sendObjJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE, "***jmsMessagingTemplate***");
         } catch (Exception e) {
             log.error("队列发送时异常！", e);
         }
+    }
+
+    /**
+     * 测试使用jmsMessagingTemplate.convertAndSend发送Object消息
+     */
+    @Test
+    public void testJmsMessagingTemplateObj() {
+        Appl appl = new Appl();
+        appl.setApplSeq(new BigDecimal("6733456"));
+        appl.setOutSts("14");
+        List<Appl> list = new ArrayList<>();
+        list.add(appl);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
+        map.put("name", "aaa");
+        map.put("age", 88);
+        map2.put("name", "bbb");
+        map2.put("age", 88);
+        map2.put("list", list);
+        queueSender.sendObjJms(MqConstant.TEST_METHOD_DEFAULT_QUEUE2, map);
     }
 
 

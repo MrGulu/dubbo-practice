@@ -2,6 +2,7 @@ package cn.tang.base.activemq.sender;
 
 import cn.tang.base.activemq.common.SchedulerMessagePostProcessor;
 import org.apache.activemq.ScheduledMessage;
+import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -163,6 +164,27 @@ public class QueueSender {
      * 注：用上面jmsTemplate就行了。
      */
     public void sendStringJms(String queueName, final String message) {
+        jmsMessagingTemplate.convertAndSend(queueName, message);
+    }
+
+    public void sendObjJms(String queueName, final Object message) {
+        ActiveMQObjectMessage objectMessage = new ActiveMQObjectMessage();
+        try {
+            objectMessage.setObject((Serializable) message);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        jmsMessagingTemplate.convertAndSend(queueName, objectMessage);
+    }
+
+    public void sendObjWaitJms(String queueName, final Object message, final int time) {
+        ActiveMQObjectMessage objectMessage = new ActiveMQObjectMessage();
+        try {
+            objectMessage.setObject((Serializable) message);
+            objectMessage.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, time);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
         jmsMessagingTemplate.convertAndSend(queueName, message);
     }
 

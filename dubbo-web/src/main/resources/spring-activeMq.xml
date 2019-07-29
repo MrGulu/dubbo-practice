@@ -75,6 +75,8 @@
         <!--默认消费者，用于测试-->
         <jms:listener destination="dubbo.web.test.method.default.queue" ref="testMethodQueueConsumer"
                       method="testMethodMqDefault"/>
+        <jms:listener destination="dubbo.web.test.method.default.queue2" ref="testMethodQueueConsumer"
+                      method="testMethodMqDefault"/>
         <!--发送ActiveMapMessage类型参数消费者，用于测试。此方法只能放入java primitive数据类型。-->
         <jms:listener destination="dubbo.web.test.method.mapmsg.queue" ref="testMethodQueueConsumer"
                       method="testMethodMqMapMsg"/>

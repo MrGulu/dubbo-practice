@@ -9,6 +9,7 @@ public class MqConstant {
      * 默认字符串队列
      */
     public static final String TEST_METHOD_DEFAULT_QUEUE = "dubbo.web.test.method.default.queue";
+    public static final String TEST_METHOD_DEFAULT_QUEUE2 = "dubbo.web.test.method.default.queue2";
     /**
      * 发送对象bean队列
      */
