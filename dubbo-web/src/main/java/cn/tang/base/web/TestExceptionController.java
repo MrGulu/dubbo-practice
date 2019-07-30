@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/test")
-public class TestController {
+public class TestExceptionController {
 
     @Autowired
     private IApplService applService;

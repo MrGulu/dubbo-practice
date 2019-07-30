@@ -11,5 +11,9 @@ public class Constant {
      */
     public static final String DATE_SIGN_AFTER = "AFTER";
 
+    public static final String USER_NAME = "userName";
+
+    public static final String USER_PWD = "pwd";
+
 
 }
