@@ -19,6 +19,19 @@ public class StringUtils {
     private static String sUni = "整分角圆拾佰仟万拾佰仟亿拾佰仟万拾佰仟亿拾佰仟万拾佰仟";
 
     /**
+     * @param str     判空字符串
+     * @param message 字符串为空时抛出异常message
+     * @return 返回非空字符串
+     * @description 字符串为空抛出空指针异常
+     */
+    public static String requireNonEmpty(String str, String message) {
+        if (isEmpty(str)) {
+            throw new NullPointerException(message);
+        }
+        return str;
+    }
+
+    /**
      * 判断地址的字符长度
      *
      * @param addr

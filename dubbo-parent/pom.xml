@@ -26,7 +26,7 @@
         下面定义的是3.4.14，我本机的zookeeper版本是3.4.5，一样可以启动-->
         <zookeeper.version>3.4.6</zookeeper.version>
         <!--在启动的时候报java.lang.ClassNotFoundException:org.IOItec.zkclient.exception.ZkNoNodeException
-        一般就是程序包有问题，换成0.3后问题解决；马达贷0.6版本-->
+        一般就是程序包有问题，换成0.3后问题解决；妈的蛋0.6版本-->
         <zkclient.version>0.3</zkclient.version>
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis.spring.version>1.3.0</mybatis.spring.version>

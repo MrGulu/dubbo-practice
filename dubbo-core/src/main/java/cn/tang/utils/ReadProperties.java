@@ -1,7 +1,4 @@
-/**
- * 软件著作权：长安新生（深圳）金融投资有限公司
- * 系统名称：马达贷
- */
+
 package cn.tang.utils;
 
 import org.slf4j.Logger;
