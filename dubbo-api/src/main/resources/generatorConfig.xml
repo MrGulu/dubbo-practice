@@ -7,19 +7,16 @@
 <generatorConfiguration>
 
     <!-- 指定外部的属性文件 -->
-    <!--
-    <properties url="file:///D:/softcode/mybatis.properties" />
-     -->
 
     <!-- 指定外部classPath，这里是MySQL数据库驱动地址 -->
-    <!-- E:\WorkSpace\MMD\dubbo-service\src\lib\classes12.jar-->
-    <!--<classPathEntry location="C:\instantclient_11_2" />-->
-    <classPathEntry location="C:\Users\Administrator\.m2\repository\classes12\classes12\1.0\classes12-1.0.jar" />
+    <!-- E:\WorkSpace\MMD\mdd-service\src\lib\classes12.jar-->
+    <classPathEntry
+            location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
 
     <!-- 主要配置内容，指定生成哪些MyBais文件，targetRunTime指定生成代码的运行目标，defau<ltModelType指定一张数据表生成一个领域模型类 -->
     <!-- targetRuntime="MyBatis3Simple"：不生成Example.java文件，进而不生成XXXByExample方法，仅提供最基础的CRUD方法 -->
     <!-- tragetRuntime="MyBatis3"：生成Example.java文件和XXXByExample方法，除了最基础的CRUD方法外，提供自定义动态Where子句功能 -->
-    <context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
+    <context id="MySQLTables" targetRuntime="MyBatis3">
 
         <commentGenerator>
             <!-- true:不生成注释，false:生成注释 -->
@@ -29,10 +26,10 @@
         </commentGenerator>
 
         <!-- 1.指定JDBC数据库连接信息 -->
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@//10.10.10.211:1521/ebank"
-                        userId="changanloan_sit"
-                        password="changanloan_sit">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/design?characterEncoding=utf8"
+                        userId="root"
+                        password="root">
         </jdbcConnection>
 
         <!-- 类型解析器 -->
@@ -43,48 +40,45 @@
         </javaTypeResolver>
 
         <!-- 2. 指定采用何种方式，生成何种对象 -->
-        <!-- 生成领域模型（实体类）和查询对象， 在tragetProject目录下的targetPackage(test.model)包中生成与数据表同名的领域模型 (Pet.java)， 生成名为PetExample.java的查询对象 -->
+        <!-- 生成领域模型（实体类）和查询对象，	在tragetProject目录下的targetPackage(demo.model)包中生成与数据表同名的领域模型 (Pet.java)， 生成名为PetExample.java的查询对象 -->
         <javaModelGenerator targetPackage="cn.tang.base.bean"
                             targetProject="./src/main/java">
-            <property name="MobileView" value="true" />
+            <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true" />
             <!-- 不使用setProperty方法，而是使用构造函数为每个字段赋值，推荐不设置此属性 -->
             <!-- <property name="immutable" value="true" /> -->
         </javaModelGenerator>
 
+        <!-- 生成 MyBatis的SQL映射文件，PetMapper.xml -->
+        <sqlMapGenerator targetPackage="daoMapper.base"
+                         targetProject="../dubbo-service/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
         <!--生成MyBatis的DAO接口，PetMapper.java -->
         <!-- type表示javaClient的类型，支持XMLMAPPER:SQL映射文件+接口，ANNOTATEDMAPPER：SQLBuilder+注解+接口，MIXEDMAPPER：混合形式 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.tang.base.dao"
                              targetProject="../dubbo-service/src/main/java">
-            <property name="MobileView" value="true" />
+            <property name="enableSubPackages" value="true"/>
             <!-- 指定父接口，一般不使用 -->
             <!-- <property name="rootInterface" value="hello" /> -->
         </javaClientGenerator>
-
-        <!-- 生成 MyBatis的SQL映射文件，PetMapper.xml -->
-        <sqlMapGenerator targetPackage="daoMapper.base"
-                         targetProject="../dubbo-service/src/main/resources">
-            <property name="MobileView" value="true" />
-        </sqlMapGenerator>
 
         <!-- 3. 指定为哪些数据表生成MyBatis文件 -->
         <!-- table.alias:数据表别名，所有数据列将重命名为alias_actualColumnName -->
         <!--
         <table schema="MYSCHEMA" tableName="myPet" domainObjectName="MyPet" >
-           <property name="useActualColumnNames" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
             <columnRenamingRule searchString="CUST_" replaceString="" />
             <columnOverride column="owner" property="ownerName" />
             <ignoreColumn column="sex" />
         </table>-->
         <!--<table tableName="pet" domainObjectName="Pet" />-->
 
-        <!--在上面指定<context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
-        时，targetRuntime="MyBatis3"会生成很多examples的类和方法，在项目中是不需要的，所以在下面生成具体数据库
-        中某张表时，将生成那些example的选项全都设为false，不生成！-->
-        <table tableName="LC_APPL" domainObjectName="APPL"
+        <table tableName="student" domainObjectName="Student"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
     </context>
-
 </generatorConfiguration>
+

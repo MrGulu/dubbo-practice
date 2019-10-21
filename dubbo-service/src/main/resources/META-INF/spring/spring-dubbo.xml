@@ -31,4 +31,8 @@
     <dubbo:service interface="cn.tang.base.service.IApplService" ref="applService" version="${dubbo.interface.version}"/>
     <dubbo:service interface="cn.tang.base.redis.service.IRedisService" ref="redisService"
                    version="${dubbo.interface.version}"/>
+
+    <dubbo:service interface="cn.tang.base.service.StudentService" ref="studentService"
+                   version="${dubbo.interface.version}"/>
+
 </beans>
