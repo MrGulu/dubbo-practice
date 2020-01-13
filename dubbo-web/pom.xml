@@ -39,7 +39,8 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <!--注释掉之后，就可以在web层非test域下使用junit-->
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
