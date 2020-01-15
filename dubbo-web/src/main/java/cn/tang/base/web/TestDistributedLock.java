@@ -30,7 +30,10 @@ public class TestDistributedLock {
     public void zookeeperLockTest() {
         //创建zookeeper的客户端
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        //测试zookeeper单节点
         CuratorFramework client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", retryPolicy);
+        //测试zookeeper集群
+//        CuratorFramework client = CuratorFrameworkFactory.newClient("10.169.169.231:3181,10.169.169.231:3182,10.169.169.231:3183", retryPolicy);
         client.start();
         //创建分布式锁（InterProcessMutex可重入锁），锁空间的根节点路径为/curator/lock
         InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
@@ -50,7 +53,7 @@ public class TestDistributedLock {
                 }
                 //重入锁，第一次获得后，再次获得时，由于是一个线程，所以只是计数+1
                 mutex.acquire();
-                System.out.println(Thread.currentThread().getName() + ":acquire lock！");
+                System.out.println(Thread.currentThread().getName() + ":acquire lock again！");
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -64,7 +67,7 @@ public class TestDistributedLock {
                     mutex.release();
                     System.out.println(Thread.currentThread().getName() + ":release lock！");
                     mutex.release();
-                    System.out.println(Thread.currentThread().getName() + ":release lock！");
+                    System.out.println(Thread.currentThread().getName() + ":release lock again！");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -144,5 +147,176 @@ public class TestDistributedLock {
          */
         client.close();
     }
+
+
+    /**
+     * 本项目中使用的redis版本低，若升级高版本，redis的各种加载类就会报错，所以看Test项目，此部分。
+     */
+//    /**
+//     * 使用redis实现分布式锁，借助新版本redis原子语句，及lua脚本实现。
+//     * （基于Redis单实例，未使用redis集群，若使用集群，参考Redission实现锁）
+//     *
+//     * 分布式锁本质上要实现目标就是在Redis里面占一个坑，当别的进程也要来占用时，
+//     * 发现已经有人蹲在那里，只好放弃或者等待。
+//     * （等待最长时间，必须小于锁的过期时间。否则，假设锁2秒过期自动释放，但是A还没处理完（即：A的处理时间大于2秒），
+//     * 这时锁会因为redis key过期“提前”误释放，B重试时拿到锁，造成A,B同时处理。）
+//     * （以下分析基于Redis单实例）
+//     *
+//     * 解决的问题：
+//     *    （后进放弃）1.重复插入数据
+//     *    （后进放弃）2.重复请求拦截
+//     *    （后进等待）3.分布式系统共享资源使用（唯一订单号递增，获取到锁才能拿订单号）
+//     *     ……待发现
+//     */
+//
+//    private static final String LOCK_SUCCESS = "OK";
+//    private static final String SET_IF_NOT_EXIST = "NX";
+//    private static final String SET_WITH_EXPIRE_TIME = "PX";
+//    private static final Long RELEASE_SUCCESS = 1L;
+//
+//    @Test
+//    @SuppressWarnings("all")
+//    public void redisLockTest(){
+//        //个人aliyun地址
+//        Jedis jedis = new Jedis("47.94.224.238",6379);
+//        //redis锁key
+//        String lockKey = "key";
+//        //超时时间120s
+//        int expireTime = 120000;
+//
+//        /**
+//         * 启动线程，获取锁，模拟1s耗时操作后，释放锁
+//         */
+//        Thread thread0 = new Thread(() -> {
+//            try {
+//                //获取当前线程请求ID，唯一
+//                String requestId = UUID.randomUUID().toString();
+//                boolean t1lockSuccess = tryGetDistributedLock(jedis, lockKey, requestId, expireTime);
+//                if (t1lockSuccess) {
+//                    log.info("\n[{}] lock result:[{}]，key=[{}],value=[{}],expireTime=[{}] ms", new Object[]{Thread.currentThread().getName(), t1lockSuccess, lockKey, requestId, expireTime});
+//                    System.out.println(Thread.currentThread().getName() + "获取到redis锁！");
+//                    //模拟耗时操作
+//                    Thread.sleep(1000);
+//                    boolean t0releaseLockSuccess = releaseDistributedLock(jedis, lockKey, requestId);
+//                    if (t0releaseLockSuccess) {
+//                        log.info("\n[{}] release lock result:[{}]，key=[{}],value=[{}]", new Object[]{Thread.currentThread().getName(), t0releaseLockSuccess, lockKey, requestId});
+//                        System.out.println(Thread.currentThread().getName() + "释放redis锁！");
+//                    } else {
+//                        System.err.println(Thread.currentThread().getName() + "释放redis锁失败！");
+//                    }
+//                } else {
+//                    System.out.println(Thread.currentThread().getName() + "未获取到redis锁！");
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//
+//        /**
+//         * 启动线程，获取锁，一开始睡眠1s目的是先让线程0获取锁，模拟并发情况时，线程0获取到锁执行代码，
+//         * 这时另一线程也过来请求锁，此时因为线程0还在执行，未释放锁，所以请求锁是失败的。
+//         */
+//        Thread thread1 = new Thread(() -> {
+//            try {
+//                //让thread-0先获取到锁
+//                Thread.sleep(1000);
+//                String requestId = UUID.randomUUID().toString();
+//                boolean t2lockSuccess = tryGetDistributedLock(jedis, lockKey, requestId, expireTime);
+//                if (t2lockSuccess) {
+//                    log.info("\n[{}] lock result:[{}]，key=[{}],value=[{}],expireTime=[{}] ms", new Object[]{Thread.currentThread().getName(), t2lockSuccess, lockKey, requestId, expireTime});
+//                    System.out.println(Thread.currentThread().getName() + "获取到redis锁！");
+//                    //模拟耗时操作
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    boolean t1releaseLockSuccess = releaseDistributedLock(jedis, lockKey, requestId);
+//                    if (t1releaseLockSuccess) {
+//                        log.info("\n[{}] release lock result:[{}]，key=[{}],value=[{}]", new Object[]{Thread.currentThread().getName(), t1releaseLockSuccess, lockKey, requestId});
+//                        System.out.println(Thread.currentThread().getName() + "释放redis锁！");
+//                    } else {
+//                        System.err.println(Thread.currentThread().getName() + "释放redis锁失败！");
+//                    }
+//                } else {
+//                    System.out.println(Thread.currentThread().getName() + "未获取到redis锁！");
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        thread0.start();
+//        thread1.start();
+//
+//        try {
+//            thread0.join();
+//            thread1.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        /**
+//         * 等子线程获取锁执行完逻辑后，释放锁，此时主线程再获取锁，可以获取成功。
+//         */
+//        String requestId = UUID.randomUUID().toString();
+//        boolean lockSuccess = tryGetDistributedLock(jedis, lockKey, requestId, expireTime);
+//        if (lockSuccess) {
+//            log.info("\n[{}] redis lock result:[{}]，key=[{}],value=[{}],expireTime=[{}] ms", new Object[]{Thread.currentThread().getName(), lockSuccess, lockKey, requestId, expireTime});
+//            System.out.println(Thread.currentThread().getName() + "获取到redis锁！");
+//            //模拟耗时操作
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            boolean releaseLockSuccess = releaseDistributedLock(jedis, lockKey, requestId);
+//            if (releaseLockSuccess) {
+//                log.info("\n[{}] redis release lock result:[{}]，key=[{}],value=[{}]", new Object[]{Thread.currentThread().getName(), lockSuccess, lockKey, requestId});
+//                System.out.println(Thread.currentThread().getName() + "释放redis锁！");
+//            } else {
+//                System.err.println(Thread.currentThread().getName() + "释放redis锁失败！");
+//            }
+//        } else {
+//            System.out.println(Thread.currentThread().getName() + "未获取到redis锁！");
+//        }
+//    }
+//
+//
+//    /**
+//     * 尝试获取分布式锁
+//     * @param jedis Redis客户端
+//     * @param lockKey 锁
+//     * @param requestId 请求标识
+//     * @param expireTime 超期时间
+//     * @return 是否获取成功
+//     */
+//    public static boolean tryGetDistributedLock(Jedis jedis, String lockKey, String requestId, int expireTime) {
+//
+//        String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+//
+//        if (LOCK_SUCCESS.equals(result)) {
+//            return true;
+//        }
+//        return false;
+//
+//    }
+//
+//    /**
+//     * 释放分布式锁
+//     * @param jedis Redis客户端
+//     * @param lockKey 锁
+//     * @param requestId 请求标识
+//     * @return 是否释放成功
+//     */
+//    public static boolean releaseDistributedLock(Jedis jedis, String lockKey, String requestId) {
+//
+//        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+//        Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
+//
+//        if (RELEASE_SUCCESS.equals(result)) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 }
