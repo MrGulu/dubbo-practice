@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.0.Final</version>
+            <version>6.0.23.Final</version>
         </dependency>
         <!--下面若不加，启动service会报下面错误
         [ERROR] [2019-05-26 17:15:55] com.alibaba.dubbo.container.Main.main(86) |
